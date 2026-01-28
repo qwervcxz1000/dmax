@@ -468,7 +468,7 @@
   $( window ).on( 'load', function () {
     $( '[data-persist="garlic"]' ).each( function () {
       $(this).garlic();
-      dqwCal();
+      pokeCal();
     })
   });
 
