@@ -1,1 +1,622 @@
-test
+<!DOCTYPE html>
+<!--
+
+//-->
+<html lang="ja">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" id="jquery-js"></script>
+	<script src="js/garlic.js" id="jquery-js"></script>
+	<title>大神官ヒール計算機(仮)</title>
+	<style>
+		main > .container {
+			padding: 87px 0 0;
+		}
+		.soulimg {
+			width: 80px;
+			height: 80px;
+		}
+		.grayfil {
+			filter: grayscale(100%);
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+			<span class="navbar-brand">大神官ヒール計算機(仮)</span>
+		</nav>
+	</header>
+	<main role="main" class="flex-shrink-0">
+		<div class="container">
+			<div class="row">
+				<div class="col-8">
+					<form id="damagecacl" data-persist="garlic" method="post">
+						<div class="row">
+							<div class="col-sm">
+								<p style="display: none;"> https://keisan.casio.jp/exec/user/1579613109 </p>
+								<p> こころ道　 ：<select id="job" name="job"></select> </p>
+								<p> 武器　　　 ：<select id="wepon" name="wepon"></select> </p>
+								<p> 盾　　　　 ：<select id="shield" name="shield"></select> </p>
+							</div>
+							<div class="col-sm">
+								<p> 頭防具　　 ：<select id="head" name="head"></select> </p>
+								<p> 胴防具　　 ：<select id="body" name="body"></select> </p>
+								<p> 脚防具　　 ：<select id="leg" name="leg"></select> </p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm">
+								<p> 心珠1　　　：<select id="pearl_1" name="pearl_1"></select> </p>
+								<p> 心珠2　　　：<select id="pearl_2" name="pearl_2"></select> </p>
+							</div>
+							<div class="col-sm">
+								<p> アクセ1　　：<select id="acc_1" name="acc_1"></select> </p>
+								<p> アクセ2　　：<select id="acc_2" name="acc_2"></select> </p>
+							</div>
+						</div>
+						<div class="row text-center">
+							<div class="col-sm"> <span id="soul1_img"></span> <span id="soul2_img"></span> <span id="soul3_img"></span> <span id="soul4_img"></span> </div>
+						</div>
+						<div class="row" style="margin-top:10px;">
+							<div class="col-sm">
+								<p> こころ1<span style="color:#00b954;">緑</span><span style="color:#0d00ca;">青</span>：<select id="soul_1" name="soul_1"></select> </p>
+								<p> こころ2<span style="color:#00b954;">緑</span><span style="color:#0d00ca;">青</span>：<select id="soul_2" name="soul_2"></select> </p>
+							</div>
+							<div class="col-sm">
+								<p> こころ3<span style="background: linear-gradient(to right,#e60000,#f39800,#fff100,#009944,#0068b7,#1d2088,#920783); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">虹</span>　：<select id="soul_3" name="soul_3"></select> </p>
+								<p> こころ4<span style="color:#00b954;">緑</span>　：<select id="soul_4" name="soul_4"></select> </p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm">
+								<p> 装備心無し魔力：<input type="number" name="heal" value="321" maxlength="4" style="width:90px;"> </p>
+							</div>
+							<div class="col-sm">
+								<p><input type="submit" value="データリセット" class="btn btn-primary"> <a href="?">normal</a> / <a href="?debug=on">debug</a></p>
+							</div>
+						</div>
+						<!--<div class="row" style="display: none;">//-->
+						<div class="row">
+							<div class="col-sm">
+								<p id="debug1" style="display: none;"> 任意スキル倍率：<input type="number" name="skill_buff" value="0" maxlength="5">% </p>
+								<p id="debug2" style="display: none;"> 任意特技倍率　：<input type="number" name="abi_buff" value="0" maxlength="5">% </p>
+							</div>
+							<div class="col-sm">
+								<p id="debug3" style="display: none;"> 任意呪文倍率　：<input type="number" name="mag_buff" value="0" maxlength="5">% </p>
+								<p id="debug4" style="display: none;"> 任意特殊倍率　：<input type="number" name="spc_buff" value="0" maxlength="5">% </p>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="col-4">
+					<table class="table table-hover">
+						<tbody>
+							<tr>
+								<td id="soul1_st"></td>
+							</tr>
+							<tr>
+								<td id="soul2_st"></td>
+							</tr>
+							<tr>
+								<td id="soul3_st"></td>
+							</tr>
+							<tr>
+								<td id="soul4_st"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm">
+					<table class="table table-hover">
+						<tbody>
+							<tr>
+								<td id="damagecacl1"></td>
+							</tr>
+							<tr>
+								<td id="damagecacl2"></td>
+							</tr>
+							<tr>
+								<td id="damagecacl3"></td>
+							</tr>
+							<tr>
+								<td id="damagecacl4"></td>
+							</tr>
+							<tr>
+								<td>
+									・お知らせ・<br />
+									アプリ更新時にバグりますバグってる時はリセットを一度試してください<br />
+									<br />
+									2024/02/24<br />
+									アップデート分対応<br />
+									デフォルトのステータスはLv65大神官 地図補正を2段階まで受け取ったくらいを想定しています<br />
+									覚醒ナウマンとセティアについては画像が無い為 仮反映としています <br />
+									<br />
+									2023/07/10<br />
+									ミレーユとバーバラ追加 マーメイドハープ 画像抜け分追加<br />
+									Lv60こころ道仮追加 試験的に特技も呪文も倍率+2%して対応してあります<br />
+									数が多くなって選択がし辛いので独断と偏見で一部こころを非表示にしました<br />
+									さとりの杖の回復魔力値 セラフィの自動回復量を修正<br />
+									<br />
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<script>
+				//データセット
+					var job_data = [
+//						{"name" : "Lv50 祈道　　　　　　"   , "heal" : 135+4, "skill_buff" : 20, "mag_buff" : 0, "abi_buff" : 0, "flag" : 0},
+//						{"name" : "Lv50 ｱﾝｺｰﾙのみ舞"   , "heal" : 105+4, "skill_buff" : 20, "mag_buff" : 0, "abi_buff" : 0, "flag" : 0},
+//						{"name" : "Lv50 ダンス用"   , "heal" : 20+4, "skill_buff" : 14, "mag_buff" : 0, "abi_buff" : 0, "flag" : 1, "spc_buff" : 25},
+						{"name" : "Lv60 回復特化(仮)"   , "heal" : 135+4+5, "skill_buff" : 20, "mag_buff" : 2, "abi_buff" : 2, "flag" : 0},
+						{"name" : "Lv60 ｱﾝｺｰﾙのみ舞(仮)"   , "heal" : 105+4+5, "skill_buff" : 20, "mag_buff" : 2, "abi_buff" : 2, "flag" : 0},
+						{"name" : "Lv60 ダンス用"   , "heal" : 20+4+5, "skill_buff" : 14, "mag_buff" : 0, "abi_buff" : 2, "flag" : 1, "spc_buff" : 25},
+
+					];
+					for (let i = 0; i < job_data.length; i++) {
+						$('#job').append('<option value="'+i+'">'+job_data[i].name+'</option>');
+					}
+/*					var job_data_60 = [
+						{"name" : "祈道(呪文2% 魔力+5)"   , "heal" : 5, "skill_buff" : 0, "mag_buff" : 2, "abi_buff" : 0, "flag" : 0},
+						{"name" : "舞道(特技2% 魔力+5)"   , "heal" : 5, "skill_buff" : 0, "mag_buff" : 0, "abi_buff" : 2, "flag" : 0},
+						{"name" : "無し"   , "heal" : 0, "skill_buff" : 0, "mag_buff" : 0, "abi_buff" : 0, "flag" : 0},
+
+					];
+					for (let i = 0; i < job_data_60.length; i++) {
+						$('#job_60').append('<option value="'+i+'">'+job_data_60[i].name+'</option>');
+					}*/
+					var wepon_data = [
+						// heal_cat 0 = 呪文 , 1 = 特技
+						{"name" : "さばきのこん"      , "heal" : 85+12, "mag_min" :15   , "mag_max" :1600 , "pow_min" :85 , "pow_max" :220 , "heal_cat" : 1, "mag_buff" : 0, "abi_buff" : 0, "skill_buff" : 0 ,"flag" :0},
+						{"name" : "エンジェルロッド"      , "heal" : 85+12, "mag_min" :15   , "mag_max" :1350 , "pow_min" :85 , "pow_max" :199 , "heal_cat" : 1, "mag_buff" : 0, "abi_buff" : 0, "skill_buff" : 0 ,"flag" :0},
+						{"name" : "さとりのつえ改仮"      , "heal" : 74+12+5, "mag_min" :15+100   , "mag_max" :650+100  , "pow_min" :20+10 , "pow_max" :130+10 , "heal_cat" : 1, "mag_buff" : 0, "abi_buff" : 5, "skill_buff" : 0 ,"flag" :0},
+						{"name" : "ぷにぷに肉球"      , "heal" : 85+12, "mag_min" :15   , "mag_max" :1350 , "pow_min" :85 , "pow_max" :199 , "heal_cat" : 1, "mag_buff" : 0, "abi_buff" : 0, "skill_buff" : 0 ,"flag" :0},
+						{"name" : "クリフトの聖杖"      , "heal" : 85+12, "mag_min" :15   , "mag_max" :1600 , "pow_min" :85 , "pow_max" :220 , "heal_cat" : 0, "mag_buff" : 0, "abi_buff" : 0, "skill_buff" : 0 ,"flag" :0},
+						{"name" : "さとりのしょ"        , "heal" : 84+12, "mag_min" :250 , "mag_max" :1200 , "pow_min" :80 , "pow_max" :185 , "heal_cat" : 0, "mag_buff" : 0, "abi_buff" : 0, "skill_buff" : 0,"flag" :0},
+						{"name" : "封竜の神楽鈴"     , "heal" : 83+12, "mag_min" :15   , "mag_max" :900  , "pow_min" :65 , "pow_max" :150 , "heal_cat" : 1, "mag_buff" : 0, "abi_buff" : 0, "skill_buff" : 0,"flag" :0},
+						{"name" : "ストロスのつえ"     , "heal" : 83+12, "mag_min" :15   , "mag_max" :900  , "pow_min" :65 , "pow_max" :150 , "heal_cat" : 1, "mag_buff" : 0, "abi_buff" : 0, "skill_buff" : 0,"flag" :0},
+						{"name" : "ダンシングロッド"     , "heal" : 80+5+12, "mag_min" :15   , "mag_max" :900  , "pow_min" :65 , "pow_max" :150 , "heal_cat" : 1, "mag_buff" : 0, "abi_buff" : 0, "skill_buff" : 0,"flag" :0},
+						{"name" : "聖風の杖"           , "heal" : 79+5+12, "mag_min" :15  , "mag_max" :1200 , "pow_min" :75 , "pow_max" :180 , "heal_cat" : 0, "mag_buff" : 0, "abi_buff" : 0, "skill_buff" : 0,"flag" :0},
+						{"name" : "トワイライト"  , "heal" : 77+5+12, "mag_min" :15   , "mag_max" :650  , "pow_min" :20 , "pow_max" :130 , "heal_cat" : 1, "mag_buff" : 10, "abi_buff" : 0, "skill_buff" : 0,"flag" :0},
+						{"name" : "ドラゴンロッド改仮" , "heal" : 59+15, "mag_min" :15+50   , "mag_max" :450+50  , "pow_min" :15+19 , "pow_max" :84+19 , "heal_cat" : 1, "mag_buff" : 0, "abi_buff" : 20, "skill_buff" : 0,"flag" :0},
+						{"name" : "ひかりのタクト完凸　"    , "heal" : 85+12, "mag_min" :15    , "mag_max" :500  , "pow_min" :15 , "pow_max" :84 , "heal_cat" : 1, "mag_buff" : 0, "abi_buff" : 20, "skill_buff" : 0,"flag" :0},
+						{"name" : "ハッスル(光のタクト)"     , "heal" : 85+12, "mag_min" :15    , "mag_max" :600  , "pow_min" :25 , "pow_max" :85 , "heal_cat" : 1, "mag_buff" : 0, "abi_buff" : 20, "skill_buff" : 0,"flag" :1},
+						{"name" : "ハッスル(タンバリン)"     , "heal" : 30+5, "mag_min" :15    , "mag_max" :600  , "pow_min" :25 , "pow_max" :85 , "heal_cat" : 1, "mag_buff" : 0, "abi_buff" : 0, "skill_buff" : 0,"flag" :1},
+						//{"name" : "エルフの慈愛(500改)"   , "wepon_heal" : 0, "mag_min" :15 , "mag_max" :500  , "pow_min" :75 , "pow_max" :100 , "heal_cat" : 1, "wepon_buff_0" : 0},
+						//{"name" : "ホイミ(800 呪)"           , "wepon_heal" : 0, "mag_min" :70 , "mag_max" :800  , "pow_min" :30 , "pow_max" :180 , "heal_cat" : 0, "wepon_buff_0" : 0},
+						//{"name" : "ベホイミ(クリフト杖)"    , "heal" : 85+12, "mag_min" :100 , "mag_max" :800  , "pow_min" :70 , "pow_max" :350 , "heal_cat" : 0, "mag_buff" : 0, "abi_buff" : 0, "skill_buff" : 0,"flag" :0},
+						//{"name" : "クリフトの聖杖完凸"      , "heal" : 100+12, "mag_min" :15   , "mag_max" :1600 , "pow_min" :85 , "pow_max" :220 , "heal_cat" : 0, "mag_buff" : 10, "abi_buff" : 0, "skill_buff" : 0 ,"flag" :0 },
+						//{"name" : "ベホイミショット3凸"     , "heal" : 77+5+12, "mag_min" :15   , "mag_max" :650  , "pow_min" :20 , "pow_max" :130 , "heal_cat" : 1, "mag_buff" : 10, "abi_buff" : 10, "skill_buff" : 0,"flag" :0},
+					];
+					for (let i = 0; i < wepon_data.length; i++) {
+						$('#wepon').append('<option value="'+i+'">'+wepon_data[i].name+'</option>');
+					}
+					var soul_data = [ //メモ数値は切り上げ
+						{"no" : 19 ,"name" : "スーパーテンツク" , "heal" : 122, "skill_buff" : 10, "mag_buff" : 0, "abi_buff" : 0, "hp" : 122,
+							"color" : "green", "bg" : "#e7ffed", "set" : 4, "img" : "IMG_2490.PNG", "st" : "<br />虫耐性5% 麻痺耐性10%<br />守備減耐性10% みかわし5%" , "flag" : 0},
+
+
+						{"no" : 27 ,"name" : "セティア" , "heal" : 157, "skill_buff" : 7, "mag_buff" : 0, "abi_buff" : 0, "hp" : 84,
+							"color" : "green", "bg" : "#e7ffed", "set" : 0, "img" : "IMG_0000.PNG", "st" : "<br />混乱耐性10% 呪い耐性10%" , "flag" : 0},
+
+						{"no" : 27 ,"name" : "リッカ" , "heal" : 109, "skill_buff" : 7, "mag_buff" : 0, "abi_buff" : 0, "hp" : 127,
+							"color" : "green", "bg" : "#e7ffed", "set" : 0, "img" : "IMG_2979.PNG", "st" : "<br />休み耐性20%" , "flag" : 0},
+
+						{"no" : 26 ,"name" : "ぬしさま" , "heal" : 82, "skill_buff" : 10, "mag_buff" : 0, "abi_buff" : 0, "hp" : 150,
+							"color" : "green", "bg" : "#e7ffed", "set" : 0, "img" : "IMG_2980.PNG", "st" : "<br />イオ耐性7% ドルマ耐性7% 混乱耐性10%" , "flag" : 0},
+
+						{"no" : 25 ,"name" : "ゲルニック将軍" , "heal" : 118, "skill_buff" : 0, "mag_buff" : 7, "abi_buff" : 0, "hp" : 74,
+							"color" : "green", "bg" : "#e7ffed", "set" : 0, "img" : "IMG_2981.PNG", "st" : "<br />封印耐性7% 転び耐性7%" , "flag" : 0},
+
+						{"no" : 24 ,"name" : "覚醒ナウマンボーグ" , "heal" : 102, "skill_buff" : 12, "mag_buff" : 0, "abi_buff" : 0, "hp" : 120,
+							"color" : "green", "bg" : "#e7ffed", "set" : 0, "img" : "IMG_0000.PNG", "st" : "<br />混乱耐性20% 怯え耐性10%" , "flag" : 0},
+
+
+						{"no" : 22 ,"name" : "ジャミラス" , "heal" : 117, "skill_buff" : 0, "mag_buff" : 0, "abi_buff" : 7, "hp" : 89,
+							"color" : "green", "bg" : "#e7ffed", "set" : 0, "img" : "IMG_2678.PNG", "st" : "<br />ドルマ耐性7% 眠り耐性7% 麻痺耐性7%" , "flag" : 0},
+
+						{"no" : 23 ,"name" : "ミレーユとバーバラ" , "heal" : 106, "skill_buff" : 7, "mag_buff" : 0, "abi_buff" : 0, "hp" : 79,
+							"color" : "green", "bg" : "#ffadf5", "set" : 0, "img" : "IMG_2679.PNG", "st" : "<br />眠り耐性7%" , "flag" : 0},
+
+						{"no" : 21 ,"name" : "魔剣士ピサロ" , "heal" : 95, "skill_buff" : 10, "mag_buff" : 0, "abi_buff" : 0, "hp" : 71,
+							"color" : "green", "bg" : "#ffeaf5", "set" : 0, "img" : "IMG_2487.PNG", "st" : "<br />ヒャド耐性10% 封印耐性10%" , "flag" : 0},
+
+						{"no" : 21 ,"name" : "魔剣士ピサロ(回魔+20)" , "heal" : 95+20, "skill_buff" : 10, "mag_buff" : 0, "abi_buff" : 0, "hp" : 71,
+							"color" : "green", "bg" : "#ffcde7", "set" : 0, "img" : "IMG_2487.PNG", "st" : "<br />ヒャド耐性10% 封印耐性10%" , "flag" : 0},
+
+						{"no" : 20 ,"name" : "セラフィ" , "heal" : 85, "skill_buff" : 7, "mag_buff" : 0, "abi_buff" : 0, "hp" : 138,
+							"color" : "green", "bg" : "#e7ffed", "set" : 0, "img" : "IMG_2470.PNG", "st" : "<br />バギ耐性7% ヒャド耐性7%<br />ターン開始時HP10回復" , "flag" : 0},
+
+						{"no" : 1 ,"name" : "ユニコーン" , "heal" : 100, "skill_buff" : 10, "mag_buff" : 0, "abi_buff" : 0, "hp" : 120,
+							"color" : "green", "bg" : "#e7ffed", "set" : 1, "img" : "IMG_2223.PNG", "st" : "<br />メラ耐性10%" , "flag" : 0},
+
+						{"no" : 1 ,"name" : "ユニコーン(HP50%以下)" , "heal" : 100, "skill_buff" : 12, "mag_buff" : 0, "abi_buff" : 0, "hp" : 120,
+							"color" : "green", "bg" : "#e7ffed", "set" : 0, "img" : "IMG_2223.PNG", "st" : "<br />メラ耐性10%" , "flag" : 0},
+
+						{"no" : 2 ,"name" : "シドー"              , "heal" : 90, "skill_buff" : 10, "mag_buff" : 0, "abi_buff" : 0, "hp" : 140,
+							"color" : "green", "bg" : "#e7ffed", "set" : 2, "img" : "IMG_2225.PNG", "st" : "<br />デイン耐性10% 封印耐性10%", "flag" : 0},
+
+						{"no" : 2 ,"name" : "シドー(HP20%以下)"    , "heal" : 90, "skill_buff" : 15, "mag_buff" : 0, "abi_buff" : 0, "hp" : 140,
+							"color" : "green", "bg" : "#e7ffed", "set" : 0, "img" : "IMG_2225.PNG", "st" : "<br />デイン耐性10% 封印耐性10%", "flag" : 0},
+
+						{"no" : 3 ,"name" : "ゼシカとククール"       , "heal" : 64, "skill_buff" : 7, "mag_buff" : 0, "abi_buff" : 0, "hp" : 134,
+							"color" : "green", "bg" : "#e7ffed", "set" : 0, "img" : "IMG_2227.PNG", "st" : "<br />みかわし10%", "flag" : 0},
+
+//						{"no" : 4 ,"name" : "ヘルクラウダー"        , "heal" : 110, "skill_buff" : 7, "mag_buff" : 0, "abi_buff" : 0, "hp" : 88,
+//							"color" :"green", "bg" : "#e7ffed", "set" : 0, "img" : "IMG_2228.PNG", "st" : "<br />バギ耐性7% 封印耐性7%", "flag" : 0},
+
+						{"no" : 5 ,"name" : "ボボンガー"            , "heal" : 98, "skill_buff" : 10, "mag_buff" : 0, "abi_buff" : 0, "hp" : 114,
+							"color" : "green", "bg" : "#e7ffed", "set" : 3, "img" : "IMG_2230.PNG", "st" : "<br />封印耐性10% 呪い耐性10% 魅了耐性10%", "flag" : 0},
+
+//						{"no" : 6 ,"name" : "わたぼう"             , "heal" : 87, "skill_buff" : 7, "mag_buff" : 0, "abi_buff" : 0, "hp" : 102,
+//							"color" : "green", "bg" : "#e7ffed", "set" : 0, "img" : "IMG_2229.PNG", "st" : "<br />呪文耐性10% 眠り耐性5%", "flag" : 0},
+
+						{"no" : 7 ,"name" : "覚醒あくま神官"        , "heal" : 94, "skill_buff" : 10, "mag_buff" : 0, "abi_buff" : 0, "hp" : 90,
+							"color" : "green", "bg" : "#e7ffed", "set" : 0, "img" : "IMG_2232.PNG", "st" : "<br />ギラ耐性10% イオ耐性10%", "flag" : 0},
+
+//						{"no" : 8 ,"name" : "イブール"             , "heal" : 113, "skill_buff" : 7, "mag_buff" : 0, "abi_buff" : 0, "hp" : 61,
+//							"color" : "green", "bg" : "#e7ffed", "set" : 0, "img" : "IMG_2233.PNG", "st" : "<br />魅了耐性7% 混乱耐性7% メラ耐性5%", "flag" : 0},
+
+						{"no" : 9 ,"name" : "バラモス"              , "heal" : 55, "skill_buff" : 10, "mag_buff" : 0, "abi_buff" : 0, "hp" : 108,
+							"color" : "green", "bg" : "#e7ffed", "set" : 0, "img" : "IMG_2236.PNG", "st" : "<br />呪文耐性5% イオ耐性5% 混乱耐性10%", "flag" : 0},
+
+//						{"no" : 10 ,"name" : "デスピサロ"            , "heal" : 88, "skill_buff" : 10, "mag_buff" : 0, "abi_buff" : 0, "hp" : 39,
+//							"color" : "green", "bg" : "#e7ffed", "set" : 0, "img" : "IMG_2238.PNG", "st" : "<br />ヒャド耐性10% 封印耐性10%", "flag" : 0},
+
+//						{"no" : 11 ,"name" : "うごくひょうぞう"       , "heal" : 60, "skill_buff" : 7, "mag_buff" : 0, "abi_buff" : 0, "hp" : 125,
+//							"color" : "green", "bg" : "#e7ffed", "set" : 0, "img" : "IMG_2231.PNG", "st" : "ターン開始時HP5回復<br />ヒャド耐性7% ドルマ耐性7% 守備減耐性10%", "flag" : 0},
+
+//						{"no" : 12 ,"name" : "メタルホイミン"         , "heal" : 62, "skill_buff" : 7, "mag_buff" : 0, "abi_buff" : 0, "hp" : 73,
+//							"color" : "green", "bg" : "#e7ffed", "set" : 0, "img" : "IMG_2235.PNG", "st" : "<br />全属耐性5% 全異常耐性5% 変化耐性5%", "flag" : 0},
+
+//						{"no" : 13 ,"name" : "ドラゴスライム"         , "heal" : 52, "skill_buff" : 7, "mag_buff" : 0, "abi_buff" : 0, "hp" : 69,
+//							"color" : "green", "bg" : "#e7ffed", "set" : 0, "img" : "IMG_2237.PNG", "st" : "<br />全属性耐性10% ブレス耐性5%", "flag" : 0},
+
+						{"no" : 14 ,"name" : "冥獣王ネルゲル"        , "heal" : 68, "skill_buff" : 0, "mag_buff" : 7, "abi_buff" : 0, "hp" : 135,
+							"color" : "purple", "bg" : "#fbd8ff", "set" : 0, "img" : "IMG_2222.PNG", "st" : "<br />ターン開始時HP20回復", "flag" : 0},
+
+						{"no" : 15 ,"name" : "クリフト"             , "heal" : 117, "skill_buff" : 0, "mag_buff" : 7, "abi_buff" : 0, "hp" : 76,
+							"color" : "green", "bg" : "#e7ffca", "set" : 0, "img" : "IMG_2241.PNG", "st" : "<br />", "flag" : 0},
+
+						{"no" : 16 ,"name" : "クィーンスライム"      , "heal" : 83, "skill_buff" : 7, "mag_buff" : 0, "abi_buff" : 0, "hp" : 77,
+							"color" : "blue", "bg" : "#dee8ff", "set" : 0, "img" : "IMG_2224.PNG", "st" : "<br />魅了耐性5% 呪い耐性5%", "flag" : 1 , "spc_buff" : 20},
+
+						{"no" : 17 ,"name" : "トロピカルアミーゴ"    , "heal" : 74, "skill_buff" : 0, "mag_buff" : 0, "abi_buff" : 7, "hp" : 75,
+							"color" : "blue", "bg" : "#dee8ff", "set" : 0, "img" : "IMG_2226.PNG", "st" : "<br />転び耐性5% 麻痺耐性5%", "flag" : 0},
+
+//						{"no" : 18 ,"name" : "しにがみきぞく"        , "heal" : 108, "skill_buff" : 7, "mag_buff" : 0, "abi_buff" : 0, "hp" : 108,
+//							"color" : "yellow", "bg" : "#fffce0", "set" : 0, "img" : "IMG_2234.PNG", "st" : "<br />ドルマ耐性7% 呪い耐性7%", "flag" : 0},
+
+						{"no" : 9999 ,"name" : "無し"                    , "heal" : 0, "skill_buff" : 0, "mag_buff" : 0, "abi_buff" : 0, "hp" : 0,
+							"color" : "none", "bg" : "#ffffff", "set" : 0, "img" : "IMG_0000.PNG", "st" : "<br />", "flag" : 0},
+					];
+					for (let i = 0; i < soul_data.length; i++) {
+						if (soul_data[i].set == 1) {
+							$('#soul_1').append('<option value="'+i+'" style="background:'+ soul_data[i].bg +';" selected>'+soul_data[i].name+'</option>');
+						} else {
+							$('#soul_1').append('<option value="'+i+'" style="background:'+ soul_data[i].bg +';">'+soul_data[i].name+'</option>');
+						}
+					}
+					for (let i = 0; i < soul_data.length; i++) {
+						if (soul_data[i].set == 2) {
+							$('#soul_2').append('<option value="'+i+'" style="background:'+ soul_data[i].bg +';" selected>'+soul_data[i].name+'</option>');
+						} else {
+							$('#soul_2').append('<option value="'+i+'" style="background:'+ soul_data[i].bg +';">'+soul_data[i].name+'</option>');
+						}
+					}
+					for (let i = 0; i < soul_data.length; i++) {
+						if (soul_data[i].set == 3) {
+							$('#soul_3').append('<option value="'+i+'" style="background:'+ soul_data[i].bg +';" selected>'+soul_data[i].name+'</option>');
+						} else {
+							$('#soul_3').append('<option value="'+i+'" style="background:'+ soul_data[i].bg +';">'+soul_data[i].name+'</option>');
+						}
+					}
+					for (let i = 0; i < soul_data.length; i++) {
+						if (soul_data[i].set == 4) {
+							$('#soul_4').append('<option value="'+i+'" style="background:'+ soul_data[i].bg +';" selected>'+soul_data[i].name+'</option>');
+						} else {
+							$('#soul_4').append('<option value="'+i+'" style="background:'+ soul_data[i].bg +';">'+soul_data[i].name+'</option>');
+						}
+					}
+
+					var pearl_data = [
+						{"name" : "神楽鈴"                   , "heal" : 0, "skill_buff" : 12, "mag_buff" : 0, "abi_buff" : 0},
+						{"name" : "回復S"                    , "heal" : 0, "skill_buff" : 10, "mag_buff" : 0, "abi_buff" : 0},
+						{"name" : "回復A"                    , "heal" : 0, "skill_buff" : 6, "mag_buff" : 0, "abi_buff" : 0},
+						{"name" : "回復S+魔力20"              , "heal" : 20, "skill_buff" : 10, "mag_buff" : 0, "abi_buff" : 0},
+						{"name" : "回復A+魔力10"              , "heal" : 10, "skill_buff" : 6, "mag_buff" : 0, "abi_buff" : 0},
+						{"name" : "魔力20のみ"                , "heal" : 20, "skill_buff" : 0, "mag_buff" : 0, "abi_buff" : 0},
+						{"name" : "魔力10のみ"                , "heal" : 10, "skill_buff" : 0, "mag_buff" : 0, "abi_buff" : 0},
+						{"name" : "回復無し"                  , "heal" : 0, "skill_buff" : 0, "mag_buff" : 0, "abi_buff" : 0},
+					];
+					for (let i = 0; i < pearl_data.length; i++) {
+						$('#pearl_1').append('<option value="'+i+'">'+pearl_data[i].name+'</option>');
+					}
+					for (let i = 0; i < pearl_data.length; i++) {
+						if (i == 1) {
+							$('#pearl_2').append('<option value="'+i+'" selected>'+pearl_data[i].name+'</option>');
+						} else {
+							$('#pearl_2').append('<option value="'+i+'">'+pearl_data[i].name+'</option>');
+						}
+					}
+
+					var acc_data = [ 
+						{"name" : "回復無し"                  , "heal" : 0, "skill_buff" : 0, "mag_buff" : 0, "abi_buff" : 0},
+						{"name" : "にじのしずく+"       , "heal" : 10, "skill_buff" : 2, "mag_buff" : 0, "abi_buff" : 0},
+						{"name" : "マーメイドハープ"       , "heal" : 10, "skill_buff" : 0, "mag_buff" : 0, "abi_buff" : 2},
+						{"name" : "イブールの本"       , "heal" : 20, "skill_buff" : 0, "mag_buff" : 0, "abi_buff" : 0},
+						{"name" : "破邪の大魔法書"     , "heal" : 15, "skill_buff" : 0, "mag_buff" : 0, "abi_buff" : 0},
+						{"name" : "スキル回復1%系"             , "heal" : 0, "skill_buff" : 1, "mag_buff" : 0, "abi_buff" : 0},
+					];
+					for (let i = 0; i < acc_data.length; i++) {
+						$('#acc_1').append('<option value="'+i+'">'+acc_data[i].name+'</option>');
+					}
+					for (let i = 0; i < acc_data.length; i++) {
+						$('#acc_2').append('<option value="'+i+'">'+acc_data[i].name+'</option>');
+					}
+					//1113 805-797=8
+					var head_data = [ //聖風頭
+						{"name" : "王宮完凸"             , "heal" : 18, "skill_buff" : 0, "mag_buff" : 0, "abi_buff" : 0},
+						{"name" : "凱歌　　　　"   , "heal" : 0, "skill_buff" : 0, "mag_buff" : 0, "abi_buff" : 0},
+						{"name" : "天使わっか"        , "heal" : 27, "skill_buff" : 0, "mag_buff" : 5, "abi_buff" : 0},
+						{"name" : "天使ティアラ"        , "heal" : 27, "skill_buff" : 2, "mag_buff" : 0, "abi_buff" : 5},
+						{"name" : "セラフィ頭"        , "heal" : 27, "skill_buff" : 2, "mag_buff" : 0, "abi_buff" : 5},
+						{"name" : "クリフト頭"        , "heal" : 27+5, "skill_buff" : 2, "mag_buff" : 5, "abi_buff" : 0},
+						{"name" : "賢聖頭"               , "heal" : 25, "skill_buff" : 4, "mag_buff" : 0, "abi_buff" : 0},
+						{"name" : "封竜頭"           , "heal" : 25+5, "skill_buff" : 2, "mag_buff" : 0, "abi_buff" : 4},
+						{"name" : "おうごんティアラ"   , "heal" : 25+5, "skill_buff" : 2, "mag_buff" : 0, "abi_buff" : 4},
+						{"name" : "あぶない水着21頭"   , "heal" : 25, "skill_buff" : 2, "mag_buff" : 0, "abi_buff" : 2},
+						{"name" : "聖風頭"            , "heal" : 21, "skill_buff" : 1, "mag_buff" : 4, "abi_buff" : 0},
+						{"name" : "さとり頭"          , "heal" : 23, "skill_buff" : 0, "mag_buff" : 3, "abi_buff" : 0},
+						//{"name" : "クリフト頭完凸"        , "heal" : 32+5+10, "skill_buff" : 2, "mag_buff" : 5, "abi_buff" : 0},
+					];
+					for (let i = 0; i < head_data.length; i++) {
+					//	if (i % 2 == 0){
+					//		$('#head').append('<option value="'+i+'" style="background:#e9e9e9;">'+head_data[i].name+'</option>');
+					//	} else {
+							$('#head').append('<option value="'+i+'">'+head_data[i].name+'</option>');
+					//	}
+					}
+
+					var body_data = [ 
+						{"name" : "王宮完凸"             , "heal" : 12+9, "skill_buff" : 0, "mag_buff" : 0, "abi_buff" : 0},
+						{"name" : "凱歌　　　　"   , "heal" : 0, "skill_buff" : 0, "mag_buff" : 0, "abi_buff" : 0},
+						{"name" : "天界胴"        , "heal" : 25, "skill_buff" : 0, "mag_buff" : 5, "abi_buff" : 0},
+						{"name" : "天使胴"        , "heal" : 25, "skill_buff" : 2, "mag_buff" : 0, "abi_buff" : 5},
+						{"name" : "セラフィ胴"        , "heal" : 25, "skill_buff" : 2, "mag_buff" : 0, "abi_buff" : 5},
+						{"name" : "クリフト胴"        , "heal" : 25+5, "skill_buff" : 2, "mag_buff" : 5, "abi_buff" : 0},
+						{"name" : "賢聖胴"               , "heal" : 23, "skill_buff" : 4, "mag_buff" : 0, "abi_buff" : 0},
+						{"name" : "封竜胴"           , "heal" : 23+5, "skill_buff" : 2, "mag_buff" : 0, "abi_buff" : 4},
+						{"name" : "けんじゃ胴"        , "heal" : 23+5, "skill_buff" : 2, "mag_buff" : 0, "abi_buff" : 4},
+						{"name" : "あぶない水着21胴"   , "heal" : 20, "skill_buff" : 2, "mag_buff" : 0, "abi_buff" : 2},
+						{"name" : "聖風胴"           , "heal" : 19, "skill_buff" : 1, "mag_buff" : 4, "abi_buff" : 0},
+						{"name" : "さとり胴"          , "heal" : 18+5, "skill_buff" : 0, "mag_buff" : 5, "abi_buff" : 0},
+						//{"name" : "クリフト胴完凸"        , "heal" : 30+5+10, "skill_buff" : 2, "mag_buff" : 5, "abi_buff" : 0},
+					];
+					for (let i = 0; i < body_data.length; i++) {
+					//	if (i % 2 == 0){
+					//		$('#body').append('<option value="'+i+'" style="background:#e9e9e9;">'+body_data[i].name+'</option>');
+					//	} else {
+							$('#body').append('<option value="'+i+'">'+body_data[i].name+'</option>');
+					//	}
+					}
+
+					//脚データ
+					var leg_data = [ 
+						{"name" : "王宮完凸"             , "heal" : 14+9, "skill_buff" : 0, "mag_buff" : 0, "abi_buff" : 0},
+						{"name" : "凱歌　　　"   , "heal" : 0, "skill_buff" : 0, "mag_buff" : 0, "abi_buff" : 0},
+						{"name" : "天界脚"        , "heal" : 27, "skill_buff" : 0, "mag_buff" : 5, "abi_buff" : 0},
+						{"name" : "天使脚"        , "heal" : 27, "skill_buff" : 2, "mag_buff" : 0, "abi_buff" : 5},
+						{"name" : "セラフィ脚"        , "heal" : 27, "skill_buff" : 2, "mag_buff" : 0, "abi_buff" : 5},
+						{"name" : "クリフト脚"        , "heal" : 27+5, "skill_buff" : 2, "mag_buff" : 5, "abi_buff" : 0},
+						{"name" : "賢聖脚"               , "heal" : 25, "skill_buff" : 4, "mag_buff" : 0, "abi_buff" : 0},
+						{"name" : "封竜脚"           , "heal" : 25+5, "skill_buff" : 2, "mag_buff" : 0, "abi_buff" : 4},
+						{"name" : "けんじゃ脚"        , "heal" : 25+5, "skill_buff" : 2, "mag_buff" : 0, "abi_buff" : 4},
+						{"name" : "あぶない水着21脚"   , "heal" : 22, "skill_buff" : 2, "mag_buff" : 0, "abi_buff" : 2},
+						{"name" : "聖風脚"           , "heal" : 21, "skill_buff" : 1, "mag_buff" : 4, "abi_buff" : 0},
+						{"name" : "さとり脚"          , "heal" : 20, "skill_buff" : 0, "mag_buff" : 3, "abi_buff" : 0},
+						//{"name" : "クリフト脚完凸"        , "heal" : 32+5+10, "skill_buff" : 2, "mag_buff" : 5, "abi_buff" : 0},
+					];
+					for (let i = 0; i < leg_data.length; i++) {
+					//	if (i % 2 == 0){
+					//		$('#leg').append('<option value="'+i+'" style="background:#e9e9e9;">'+leg_data[i].name+'</option>');
+					//	} else {
+							$('#leg').append('<option value="'+i+'">'+leg_data[i].name+'</option>');
+					//	}
+					}
+
+					//盾データ
+					var shield_data = [ 
+						{"name" : "回復無し盾"            , "heal" : 0, "skill_buff" : 0, "mag_buff" : 0, "abi_buff" : 0},
+						{"name" : "ルーンバックラー完凸"   , "heal" : 0+17, "skill_buff" : 0, "mag_buff" : 0, "abi_buff" : 0},
+						{"name" : "水鏡の盾"             , "heal" : 0+12, "skill_buff" : 2, "mag_buff" : 0, "abi_buff" : 0},
+					];
+					for (let i = 0; i < shield_data.length; i++) {
+						$('#shield').append('<option value="'+i+'">'+shield_data[i].name+'</option>');
+					}
+
+					function dqwCal(){
+
+						job = Number($('#damagecacl [name=job]').val());
+						//job_60 = Number($('#damagecacl [name=job_60]').val());
+						heal = Number($('#damagecacl [name=heal]').val());
+						wepon = Number($('#damagecacl [name=wepon]').val());
+						soul_1 = Number($('#damagecacl [name=soul_1]').val());
+						soul_2 = Number($('#damagecacl [name=soul_2]').val());
+						soul_3 = Number($('#damagecacl [name=soul_3]').val());
+						soul_4 = Number($('#damagecacl [name=soul_4]').val());
+						pearl_1 = Number($('#damagecacl [name=pearl_1]').val());
+						pearl_2 = Number($('#damagecacl [name=pearl_2]').val());
+						acc_1 = Number($('#damagecacl [name=acc_1]').val());
+						acc_2 = Number($('#damagecacl [name=acc_2]').val());
+						head = Number($('#damagecacl [name=head]').val());
+						body = Number($('#damagecacl [name=body]').val());
+						leg = Number($('#damagecacl [name=leg]').val());
+						shield = Number($('#damagecacl [name=shield]').val());
+
+						//こころ1緑青
+						
+						if (soul_data[soul_1].color == "green" || soul_data[soul_1].color == "blue" || soul_data[soul_1].color == "rain" || soul_data[soul_1].color == "none") {
+							heal = heal + Math.ceil(soul_data[soul_1].heal * 1.3);
+							soul_hp = Math.ceil(soul_data[soul_1].hp * 1.3);
+							soul1_error = '';
+							$("#soul1_img").html('<img src="img/'+ soul_data[soul_1].img +'" class="soulimg img-thumbnail">');
+						} else {
+							heal = heal + soul_data[soul_1].heal;
+							soul_hp = soul_data[soul_1].hp;
+							soul1_error = ' <span style="color:#ff0000;">不一致</span>';
+							$("#soul1_img").html('<img src="img/'+ soul_data[soul_1].img +'" class="soulimg img-thumbnail grayfil">');
+						}
+
+						//こころ2緑青
+						soul_img = soul_data[soul_2].img;
+						if (soul_data[soul_1].no == soul_data[soul_2].no) {
+							soul_img = "IMG_9999.PNG";
+						}
+						if (soul_data[soul_2].color == "green" || soul_data[soul_2].color == "blue" || soul_data[soul_2].color == "rain" || soul_data[soul_2].color == "none") {
+							heal = heal + Math.ceil(soul_data[soul_2].heal * 1.3);
+							soul_hp = Math.ceil(soul_data[soul_2].hp * 1.3) + soul_hp;
+							soul2_error = '';
+							$("#soul2_img").html('<img src="img/'+ soul_img +'" class="soulimg img-thumbnail">');
+						} else {
+							heal = heal + soul_data[soul_2].heal;
+							soul_hp = soul_data[soul_2].hp + soul_hp;
+							soul2_error = ' <span style="color:#ff0000;">不一致</span>';
+							$("#soul2_img").html('<img src="img/'+ soul_img +'" class="soulimg img-thumbnail grayfil">');
+						}
+
+						//こころ3虹
+						soul_img = soul_data[soul_3].img;
+						if (soul_data[soul_1].no == soul_data[soul_3].no || soul_data[soul_2].no == soul_data[soul_3].no) {
+							soul_img = "IMG_9999.PNG";
+						}
+						heal = heal + Math.ceil(soul_data[soul_3].heal * 1.3);
+						soul_hp = Math.ceil(soul_data[soul_3].hp * 1.3) + soul_hp;
+						soul3_error = '';
+						$("#soul3_img").html('<img src="img/'+ soul_img +'" class="soulimg img-thumbnail">');
+
+						//こころ4緑
+						soul_img = soul_data[soul_4].img;
+						if (soul_data[soul_1].no == soul_data[soul_4].no || soul_data[soul_2].no == soul_data[soul_4].no || soul_data[soul_3].no == soul_data[soul_4].no) {
+							soul_img = "IMG_9999.PNG";
+						}
+						if (soul_data[soul_4].color == "green" || soul_data[soul_4].color == "rain" || soul_data[soul_4].color == "none") {
+							heal = heal + Math.ceil(soul_data[soul_4].heal * 1.3);
+							soul_hp = Math.ceil(soul_data[soul_4].hp * 1.3) + soul_hp;
+							soul4_error = '';
+							$("#soul4_img").html('<img src="img/'+ soul_img +'" class="soulimg img-thumbnail">');
+						} else {
+							heal = heal + soul_data[soul_4].heal;
+							soul_hp = soul_data[soul_4].hp + soul_hp;
+							soul4_error = ' <span style="color:#ff0000;">不一致</span>';
+							$("#soul4_img").html('<img src="img/'+ soul_img +'" class="soulimg img-thumbnail grayfil">');
+						}
+
+
+						//回復魔力計算
+						heal = heal + pearl_data[pearl_1].heal + pearl_data[pearl_2].heal + acc_data[acc_1].heal + acc_data[acc_2].heal
+							 + head_data[head].heal+ body_data[body].heal+ leg_data[leg].heal+ wepon_data[wepon].heal + job_data[job].heal + shield_data[shield].heal;
+
+						//スキル倍率系計算
+						skill_buff = 1 + (Number($('#damagecacl [name=skill_buff]').val())
+							+ soul_data[soul_1].skill_buff + soul_data[soul_2].skill_buff + soul_data[soul_3].skill_buff + soul_data[soul_4].skill_buff
+							+ job_data[job].skill_buff + wepon_data[wepon].skill_buff + pearl_data[pearl_1].skill_buff + pearl_data[pearl_2].skill_buff
+							+ acc_data[acc_1].skill_buff + acc_data[acc_2].skill_buff + head_data[head].skill_buff + body_data[body].skill_buff + leg_data[leg].skill_buff + shield_data[shield].skill_buff)/100;
+						mag_buff = 1 + (Number($('#damagecacl [name=mag_buff]').val())
+							+ soul_data[soul_1].mag_buff + soul_data[soul_2].mag_buff + soul_data[soul_3].mag_buff + soul_data[soul_4].mag_buff
+							+ job_data[job].mag_buff + wepon_data[wepon].mag_buff + pearl_data[pearl_1].mag_buff + pearl_data[pearl_2].mag_buff
+							+ acc_data[acc_1].mag_buff + acc_data[acc_2].mag_buff + head_data[head].mag_buff + body_data[body].mag_buff + leg_data[leg].mag_buff + shield_data[shield].mag_buff)/100;
+						abi_buff = 1 + (Number($('#damagecacl [name=abi_buff]').val())
+							+ soul_data[soul_1].abi_buff + soul_data[soul_2].abi_buff + soul_data[soul_3].abi_buff + soul_data[soul_4].abi_buff
+							+ job_data[job].abi_buff + wepon_data[wepon].abi_buff + pearl_data[pearl_1].abi_buff + pearl_data[pearl_2].abi_buff
+							+ acc_data[acc_1].abi_buff + acc_data[acc_2].abi_buff + head_data[head].abi_buff + body_data[body].abi_buff + leg_data[leg].abi_buff + shield_data[shield].abi_buff)/100;
+
+						//特殊バフ weponフラッグと同じflagを持ってる場合 spc_buffを追加
+						spc_buff = Number($('#damagecacl [name=spc_buff]').val());
+
+						if (wepon_data[wepon].flag != 0 && job_data[job].flag == wepon_data[wepon].flag) {
+							spc_buff = spc_buff + job_data[job].spc_buff;
+						}
+						if (wepon_data[wepon].flag != 0 && soul_data[soul_1].flag == wepon_data[wepon].flag) {
+							spc_buff = spc_buff + soul_data[soul_1].spc_buff;
+						}
+						if (wepon_data[wepon].flag != 0 && soul_data[soul_2].flag == wepon_data[wepon].flag) {
+							spc_buff = spc_buff + soul_data[soul_2].spc_buff;
+						}
+						if (wepon_data[wepon].flag != 0 && soul_data[soul_3].flag == wepon_data[wepon].flag) {
+							spc_buff = spc_buff + soul_data[soul_3].spc_buff;
+						}
+						if (wepon_data[wepon].flag != 0 && soul_data[soul_4].flag == wepon_data[wepon].flag) {
+							spc_buff = spc_buff + soul_data[soul_4].spc_buff;
+						}
+
+						spc_buff = 1 + spc_buff / 100;
+
+						//攻撃種別判定
+						if ( wepon_data[wepon].heal_cat == 0 ) {
+							buff = skill_buff * mag_buff * spc_buff;
+						} else {
+							buff = skill_buff * abi_buff * spc_buff;
+						}
+
+						//魔力が上限か下限の場合 補正
+						now_heal = heal;
+						if (heal < wepon_data[wepon].mag_min) {
+							heal = wepon_data[wepon].mag_min;
+						} else if (heal > wepon_data[wepon].mag_max) {
+							heal = wepon_data[wepon].mag_max;
+						}
+
+						//wepon_data[wepon].mag_min 15
+						//wepon_data[wepon].mag_max 1200
+						//wepon_data[wepon].pow_min 75
+						//wepon_data[wepon].pow_max 180
+
+						$("#soul1_st").html(soul_data[soul_1].name + soul1_error + " HP：" +soul_data[soul_1].hp + " " + soul_data[soul_1].st);
+						$("#soul2_st").html(soul_data[soul_2].name + soul2_error + " HP：" +soul_data[soul_2].hp + " " + soul_data[soul_2].st);
+						$("#soul3_st").html(soul_data[soul_3].name + soul3_error + " HP：" +soul_data[soul_3].hp + " " + soul_data[soul_3].st);
+						$("#soul4_st").html(soul_data[soul_4].name + soul4_error + " HP：" +soul_data[soul_4].hp + " " + soul_data[soul_4].st);
+						//$("#soul4_st").html(soul_data[soul_4].name + soul4_error + " HP：" +soul_data[soul_4].hp + " " + soul_data[soul_4].st + " " + Math.random());
+
+						//基礎回復計算
+						defa = Math.floor(wepon_data[wepon].pow_min + (wepon_data[wepon].pow_max-wepon_data[wepon].pow_min)
+							/(wepon_data[wepon].mag_max-wepon_data[wepon].mag_min)*(heal-wepon_data[wepon].mag_min));
+
+						$("#damagecacl1").html("最低："+Math.floor(Math.ceil(defa*0.94)*buff) + "　予想：" 
+							+ Math.floor(defa*buff) + "　最高：" + Math.floor(Math.floor(defa*1.06)*buff));
+						$("#damagecacl2").html("回復魔力：" + now_heal + "(上限" + wepon_data[wepon].mag_max + ")"
+							+ "　こころHP合計：" + soul_hp);
+						$("#damagecacl3").html("スキル倍率：" + Math.round((skill_buff-1)*100) + "%　特技倍率：" + Math.round((abi_buff-1)*100) + "%　呪文倍率：" + Math.round((mag_buff-1)*100) + "%　特殊補正：" + Math.round((spc_buff-1)*100) + "%");
+						$("#damagecacl4").html("装備中の武器で基礎回復1上げるのに必要な魔力目安：" 
+							+ Math.ceil((wepon_data[wepon].mag_max - wepon_data[wepon].mag_min) / (wepon_data[wepon].pow_max - wepon_data[wepon].pow_min )*100)/100);
+					}
+					function getParam(name, url) {
+						if (!url) url = window.location.href;
+						name = name.replace(/[\[\]]/g, "\\$&");
+						var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+						results = regex.exec(url);
+						if (!results) return null;
+						if (!results[2]) return '';
+						return decodeURIComponent(results[2].replace(/\+/g, " "));
+					}
+					if (getParam('debug') == "on") {
+						$('#debug1').css('display', 'block');
+						$('#debug2').css('display', 'block');
+						$('#debug3').css('display', 'block');
+						$('#debug4').css('display', 'block');
+					}
+					//dqwCal(); garlic.jsにてonload
+					$("#damagecacl").on('click keydown keyup keypress change',function () {
+						dqwCal();
+					})
+			</script>
+		</div>
+	</main>
+	<footer class="footer py-3"> </footer>
+</body>
+</html>
