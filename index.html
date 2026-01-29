@@ -68,8 +68,8 @@
 									</select>
 								</p>
 								<div class="pokeicon"><span id="poke1_img"></span></div>
-								<p>攻：<span id="poke1_a_w"></span><br />防：<span id="poke1_b_w"></span><br />HP：<span id="poke1_h_w"></span></p>
-								<p>火力指数：<span id="poke1_a_index"></span></p>
+								<p>攻：<span id="poke1_a_w"></span><br />防：<span id="poke1_b_w"></span><br />HP：<span id="poke1_h_w"></span><br />CP：<span id="poke1_cp"></span></p>
+								<p>火力指数：<span id="poke1_a_index"></span><br />火力比較：<span id="poke1_a_index_per"></span></p>
 							</div>
 							<div class="col-sm">
 								<p>・ポケモン2</p>
@@ -102,8 +102,8 @@
 									</select>
 								</p>
 								<div class="pokeicon"><span id="poke2_img"></span></div>
-								<p>攻：<span id="poke2_a_w"></span><br />防：<span id="poke2_b_w"></span><br />HP：<span id="poke2_h_w"></span></p>
-								<p>火力指数：<span id="poke2_a_index"></span></p>
+								<p>攻：<span id="poke2_a_w"></span><br />防：<span id="poke2_b_w"></span><br />HP：<span id="poke2_h_w"></span><br />CP：<span id="poke2_cp"></span></p>
+								<p>火力指数：<span id="poke2_a_index"></span><br />火力比較：<span id="poke2_a_index_per"></span></p>
 							</div>
 							<div class="col-sm">
 								<p>・基準用</p>
@@ -136,8 +136,8 @@
 									</select>
 								</p>
 								<div class="pokeicon"><span id="poke3_img"></span></div>
-								<p>攻：<span id="poke3_a_w"></span><br />防：<span id="poke3_b_w"></span><br />HP：<span id="poke3_h_w"></span></p>
-								<p>火力指数：<span id="poke3_a_index"></span></p>
+								<p>攻：<span id="poke3_a_w"></span><br />防：<span id="poke3_b_w"></span><br />HP：<span id="poke3_h_w"></span><br />CP：<span id="poke3_cp"></span></p>
+								<p>火力指数：<span id="poke3_a_index"></span><br />火力比較：<span id="poke3_a_index_per">100%</span></p>
 							</div>
 						</div>
 						<div class="row">
@@ -147,23 +147,16 @@
 							<table class="table table-hover">
 								<tbody>
 									<tr>
-										<td id="damagecacl1"></td>
-									</tr>
-									<tr>
-										<td id="damagecacl2"></td>
-									</tr>
-									<tr>
-										<td id="damagecacl3"></td>
-									</tr>
-									<tr>
-										<td id="damagecacl4"></td>
-									</tr>
-									<tr>
 										<td>
 											・お知らせ・<br />
 											このツールではおおよそのダイマックス火力の計算が出来ます<br />
 											入力ミスの可能性はあるのでおかしい場所あれば教えてください…<br />
-											<br />
+										</td>
+									</tr>
+									<tr>
+										<td>
+											・更新履歴<br />
+											ポケモン大量追加+個体値割り出し機能追加<br />
 										</td>
 									</tr>
 								</tbody>
@@ -383,31 +376,45 @@
 						poke1_a = (poke_data[poke1].a+Number($('#damagecacl [name=poke1_a]').val())) * poke1_cpm;
 						poke1_b = (poke_data[poke1].b+Number($('#damagecacl [name=poke1_b]').val())) * poke1_cpm;
 						poke1_h = Math.floor((poke_data[poke1].h+Number($('#damagecacl [name=poke1_h]').val())) * poke1_cpm);
+						poke1_a_index = Math.round(poke1_a * poke_week_cal(Number($('#damagecacl [name=poke1_week]').val())) * Number($('#damagecacl [name=poke1_a_l]').val()));
 						$("#poke1_a_w").html(Math.round(poke1_a*100)/100);
 						$("#poke1_b_w").html(Math.round(poke1_b*100)/100);
 						$("#poke1_h_w").html(poke1_h);
-						$("#poke1_a_index").html(Math.round(poke1_a * poke_week_cal(Number($('#damagecacl [name=poke1_week]').val())) * Number($('#damagecacl [name=poke1_a_l]').val())));
-
+						$("#poke1_a_index").html(poke1_a_index);
+						$("#poke1_cp").html( Math.floor((poke_data[poke1].a+Number($('#damagecacl [name=poke1_a]').val()))
+							 * Math.sqrt(poke_data[poke1].b+Number($('#damagecacl [name=poke1_b]').val()))
+							 * Math.sqrt(poke_data[poke1].h+Number($('#damagecacl [name=poke1_h]').val())) * poke1_cpm * poke1_cpm / 10));
 
 						$("#poke2_img").html('<img src="img/'+ poke_data[poke2].no +'.png" class="pokeimg">');
 						poke2_cpm = cpm[(Number($('#damagecacl [name=poke2_l]').val())-1)*2].CPM;
 						poke2_a = (poke_data[poke2].a+Number($('#damagecacl [name=poke2_a]').val())) * poke2_cpm;
 						poke2_b = (poke_data[poke2].b+Number($('#damagecacl [name=poke2_b]').val())) * poke2_cpm;
 						poke2_h = Math.floor((poke_data[poke2].h+Number($('#damagecacl [name=poke2_h]').val())) * poke2_cpm);
+						poke2_a_index = Math.round(poke2_a * poke_week_cal(Number($('#damagecacl [name=poke2_week]').val())) * Number($('#damagecacl [name=poke2_a_l]').val()));
 						$("#poke2_a_w").html(Math.round(poke2_a*100)/100);
 						$("#poke2_b_w").html(Math.round(poke2_b*100)/100);
 						$("#poke2_h_w").html(poke2_h);
-						$("#poke2_a_index").html(Math.round(poke2_a * poke_week_cal(Number($('#damagecacl [name=poke2_week]').val())) * Number($('#damagecacl [name=poke2_a_l]').val())));
+						$("#poke2_a_index").html(poke2_a_index);
+						$("#poke2_cp").html( Math.floor((poke_data[poke2].a+Number($('#damagecacl [name=poke2_a]').val()))
+							 * Math.sqrt(poke_data[poke2].b+Number($('#damagecacl [name=poke2_b]').val()))
+							 * Math.sqrt(poke_data[poke2].h+Number($('#damagecacl [name=poke2_h]').val())) * poke2_cpm * poke2_cpm / 10));
 
 						$("#poke3_img").html('<img src="img/'+ poke_data[poke3].no +'.png" class="pokeimg">');
 						poke3_cpm = cpm[(Number($('#damagecacl [name=poke3_l]').val())-1)*2].CPM;
 						poke3_a = (poke_data[poke3].a+Number($('#damagecacl [name=poke3_a]').val())) * poke3_cpm;
 						poke3_b = (poke_data[poke3].b+Number($('#damagecacl [name=poke3_b]').val())) * poke3_cpm;
 						poke3_h = Math.floor((poke_data[poke3].h+Number($('#damagecacl [name=poke3_h]').val())) * poke3_cpm);
+						poke3_a_index = Math.round(poke3_a * poke_week_cal(Number($('#damagecacl [name=poke3_week]').val())) * Number($('#damagecacl [name=poke3_a_l]').val()));
 						$("#poke3_a_w").html(Math.round(poke3_a*100)/100);
 						$("#poke3_b_w").html(Math.round(poke3_b*100)/100);
 						$("#poke3_h_w").html(poke3_h);
-						$("#poke3_a_index").html(Math.round(poke3_a * poke_week_cal(Number($('#damagecacl [name=poke3_week]').val())) * Number($('#damagecacl [name=poke3_a_l]').val())));
+						$("#poke3_a_index").html(poke3_a_index);
+						$("#poke3_cp").html( Math.floor((poke_data[poke3].a+Number($('#damagecacl [name=poke3_a]').val()))
+							 * Math.sqrt(poke_data[poke3].b+Number($('#damagecacl [name=poke3_b]').val()))
+							 * Math.sqrt(poke_data[poke3].h+Number($('#damagecacl [name=poke3_h]').val())) * poke3_cpm * poke3_cpm / 10));
+
+						$("#poke1_a_index_per").html(Math.round(poke1_a_index / poke3_a_index * 10000)/100+'%');
+						$("#poke2_a_index_per").html(Math.round(poke2_a_index / poke3_a_index * 10000)/100+'%');
 					}
 
 					function poke_week_cal(week) {
