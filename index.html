@@ -444,7 +444,7 @@
 						$("#poke3_cp").html( Math.floor((poke_data[poke3].a+Number($('#damagecacl [name=poke3_a]').val()))
 							 * Math.sqrt(poke_data[poke3].b+Number($('#damagecacl [name=poke3_b]').val()))
 							 * Math.sqrt(poke_data[poke3].h+Number($('#damagecacl [name=poke3_h]').val())) * poke3_cpm * poke3_cpm / 10));
-						poke3_hb_index = poke3_h * poke1_b;
+						poke3_hb_index = poke3_h * poke3_b;
 						poke3_b_index = poke3_b * 60;
 						$("#poke3_hb_index").html(Math.round(poke3_hb_index));
 						$("#poke3_b_index").html(Math.round(poke3_b_index));
@@ -453,7 +453,7 @@
 						$("#poke3_b_3").html(Math.round(poke3_hb_index+poke3_b_index*3));
 						$("#poke3_b_5").html(Math.round(poke3_hb_index+poke3_b_index*5));
 						$("#poke3_b_7").html(Math.round(poke3_hb_index+poke3_b_index*7));
-						$("#poke3_b_9").html(Math.round(poke3_hb_index+poke1_b_index*9));
+						$("#poke3_b_9").html(Math.round(poke3_hb_index+poke3_b_index*9));
 
 
 						$("#poke1_a_index_per").html(Math.round(poke1_a_index / poke3_a_index * 10000)/100+'%');
