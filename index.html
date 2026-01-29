@@ -20,6 +20,9 @@
 		.pokeicon {
 			margin-left: 70px;
 		}
+		.maxlev {
+			background: #e1beff;
+		}
 	</style>
 </head>
 <body>
@@ -40,7 +43,7 @@
 								<p>攻個体値：<input type="number" name="poke1_a" value="15" maxlength="2" style="width:90px;"> </p>
 								<p>防個体値：<input type="number" name="poke1_b" value="15" maxlength="2" style="width:90px;"> </p>
 								<p>HP個体値：<input type="number" name="poke1_h" value="15" maxlength="2" style="width:90px;"> </p>
-								<p>レベル　：<input type="number" name="poke1_l" value="50" maxlength="4" style="width:90px;" step="0.1"> </p>
+								<p>レベル　：<input type="number" name="poke1_l" value="50" maxlength="4" style="width:90px;" step="0.5"> </p>
 								<p>
 									倍率補正： 
 									<select id="poke1_week" name="poke1_week">
@@ -57,11 +60,11 @@
 									<option value="250">250 通常Lv1</option>
 									<option value="300">300 通常Lv2</option>
 									<option value="350">350 通常Lv3</option>
-									<option value="450">450 通常Lv4</option>
+									<option value="450" class="maxlev">450 通常Lv4</option>
 									<option value="350">350 キョLv1</option>
 									<option value="400">400 キョLv2</option>
 									<option value="450" selected>450 キョLv3</option>
-									<option value="550">550 キョLv4</option>
+									<option value="550" class="maxlev">550 キョLv4</option>
 									</select>
 								</p>
 								<div class="pokeicon"><span id="poke1_img"></span></div>
@@ -74,7 +77,7 @@
 								<p>攻個体値：<input type="number" name="poke2_a" value="15" maxlength="2" style="width:90px;"> </p>
 								<p>防個体値：<input type="number" name="poke2_b" value="15" maxlength="2" style="width:90px;"> </p>
 								<p>HP個体値：<input type="number" name="poke2_h" value="15" maxlength="2" style="width:90px;"> </p>
-								<p>レベル　：<input type="number" name="poke2_l" value="50" maxlength="4" style="width:90px;" step="0.1"> </p>
+								<p>レベル　：<input type="number" name="poke2_l" value="50" maxlength="4" style="width:90px;" step="0.5"> </p>
 								<p>
 									倍率補正： 
 									<select id="poke2_week" name="poke2_week">
@@ -91,11 +94,11 @@
 									<option value="250">250 通常Lv1</option>
 									<option value="300">300 通常Lv2</option>
 									<option value="350">350 通常Lv3</option>
-									<option value="450">450 通常Lv4</option>
+									<option value="450" class="maxlev">450 通常Lv4</option>
 									<option value="350">350 キョLv1</option>
 									<option value="400">400 キョLv2</option>
 									<option value="450" selected>450 キョLv3</option>
-									<option value="550">550 キョLv4</option>
+									<option value="550" class="maxlev">550 キョLv4</option>
 									</select>
 								</p>
 								<div class="pokeicon"><span id="poke2_img"></span></div>
@@ -108,7 +111,7 @@
 								<p>攻個体値：<input type="number" name="poke3_a" value="15" maxlength="2" style="width:90px;"> </p>
 								<p>防個体値：<input type="number" name="poke3_b" value="15" maxlength="2" style="width:90px;"> </p>
 								<p>HP個体値：<input type="number" name="poke3_h" value="15" maxlength="2" style="width:90px;"> </p>
-								<p>レベル　：<input type="number" name="poke3_l" value="50" maxlength="4" style="width:90px;" step="0.1"> </p>
+								<p>レベル　：<input type="number" name="poke3_l" value="50" maxlength="4" style="width:90px;" step="0.5"> </p>
 								<p>
 									倍率補正： 
 									<select id="poke3_week" name="poke3_week">
@@ -125,11 +128,11 @@
 									<option value="250">250 通常Lv1</option>
 									<option value="300">300 通常Lv2</option>
 									<option value="350">350 通常Lv3</option>
-									<option value="450">450 通常Lv4</option>
+									<option value="450" class="maxlev">450 通常Lv4</option>
 									<option value="350">350 キョLv1</option>
 									<option value="400">400 キョLv2</option>
 									<option value="450" selected>450 キョLv3</option>
-									<option value="550">550 キョLv4</option>
+									<option value="550" class="maxlev">550 キョLv4</option>
 									</select>
 								</p>
 								<div class="pokeicon"><span id="poke3_img"></span></div>
@@ -137,36 +140,40 @@
 								<p>火力指数：<span id="poke3_a_index"></span></p>
 							</div>
 						</div>
-						<div class="col-sm">
+						<div class="row">
 							<p><input type="submit" value="データリセット" class="btn btn-primary"></p>
+						</div>
+						<div class="row">
+							<table class="table table-hover">
+								<tbody>
+									<tr>
+										<td id="damagecacl1"></td>
+									</tr>
+									<tr>
+										<td id="damagecacl2"></td>
+									</tr>
+									<tr>
+										<td id="damagecacl3"></td>
+									</tr>
+									<tr>
+										<td id="damagecacl4"></td>
+									</tr>
+									<tr>
+										<td>
+											・お知らせ・<br />
+											このツールではおおよそのダイマックス火力の計算が出来ます<br />
+											入力ミスの可能性はあるのでおかしい場所あれば教えてください…<br />
+											<br />
+										</td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
 					</form>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-sm">
-					<table class="table table-hover">
-						<tbody>
-							<tr>
-								<td id="damagecacl1"></td>
-							</tr>
-							<tr>
-								<td id="damagecacl2"></td>
-							</tr>
-							<tr>
-								<td id="damagecacl3"></td>
-							</tr>
-							<tr>
-								<td id="damagecacl4"></td>
-							</tr>
-							<tr>
-								<td>
-									・お知らせ・<br />
-									<br />
-								</td>
-							</tr>
-						</tbody>
-					</table>
 				</div>
 			</div>
 			<script>
@@ -289,27 +296,81 @@
 
 					var poke_data = [
 
-						{"name" : "インテレオン", "a" : 262, "b" : 142 , "h" : 172 , "no" : "818" , flug : 1},
-						{"name" : "ゲンガー",     "a" : 261, "b" : 149 , "h" : 155 , "no" : "094" , flug : 2},
-						{"name" : "ギガイアス",   "a" : 226, "b" : 201 , "h" : 198 , "no" : "526" , flug : 0},
-						{"name" : "ムゲンダイナ", "a" : 278, "b" : 192 , "h" : 268 , "no" : "890" , flug : 3},
-						{"name" : "ザシアン",     "a" : 332, "b" : 240 , "h" : 192 , "no" : "888" , flug : 0},
-						{"name" : "キングラー",   "a" : 240, "b" : 181 , "h" : 146 , "no" : "099" , flug : 0},
-						{"name" : "ゴリランダー", "a" : 239, "b" : 168 , "h" : 225 , "no" : "812" , flug : 0},
-						{"name" : "エースバーン", "a" : 238, "b" : 163 , "h" : 190 , "no" : "815" , flug : 0},
-						{"name" : "カイリキー",   "a" : 234, "b" : 159 , "h" : 207 , "no" : "068" , flug : 0},
-						{"name" : "オーロンゲ",   "a" : 227, "b" : 139 , "h" : 216 , "no" : "861" , flug : 0},
-						{"name" : "ストリンダー", "a" : 224, "b" : 140 , "h" : 181 , "no" : "849" , flug : 0},
-						{"name" : "リザードン",   "a" : 223, "b" : 173 , "h" : 186 , "no" : "006" , flug : 0},
-						{"name" : "フーディン",   "a" : 271, "b" : 167 , "h" : 146 , "no" : "065" , flug : 0},
+
+						{"name" : "アーマーガア", "a" : 163 , "b" : 192 , "h" : 221 , "no" : "823" , flug : 0},
+						{"name" : "インテレオン", "a" : 262 , "b" : 142 , "h" : 172 , "no" : "818" , flug : 1},
+						{"name" : "ウーラオス",   "a" : 254 , "b" : 177 , "h" : 225 , "no" : "892" , flug : 0},
+						{"name" : "エースバーン", "a" : 238 , "b" : 163 , "h" : 190 , "no" : "815" , flug : 0},
+						{"name" : "エーフィ",     "a" : 261 , "b" : 175 , "h" : 163 , "no" : "196" , flug : 0},
+						{"name" : "エビワラー",   "a" : 193 , "b" : 197 , "h" : 137 , "no" : "107" , flug : 0},
+						{"name" : "エルレイド",   "a" : 237 , "b" : 195 , "h" : 169 , "no" : "475" , flug : 0},
+						{"name" : "エンテイ",     "a" : 235 , "b" : 171 , "h" : 251 , "no" : "244" , flug : 0},
+						{"name" : "オーロンゲ",   "a" : 227 , "b" : 139 , "h" : 216 , "no" : "861" , flug : 0},
+						{"name" : "オムスター",   "a" : 207 , "b" : 201 , "h" : 172 , "no" : "139" , flug : 0},
+						{"name" : "カイリキー",   "a" : 234 , "b" : 159 , "h" : 207 , "no" : "068" , flug : 0},
+						{"name" : "カブトプス",   "a" : 220 , "b" : 186 , "h" : 155 , "no" : "141" , flug : 0},
+						{"name" : "カビゴン",     "a" : 190 , "b" : 169 , "h" : 330 , "no" : "143" , flug : 0},
+						{"name" : "カメックス",   "a" : 171 , "b" : 207 , "h" : 188 , "no" : "009" , flug : 0},
+						{"name" : "カラマネロ",   "a" : 177 , "b" : 165 , "h" : 200 , "no" : "687" , flug : 0},
+						{"name" : "ギガイアス",   "a" : 226 , "b" : 201 , "h" : 198 , "no" : "526" , flug : 0},
+						{"name" : "キングラー",   "a" : 240 , "b" : 181 , "h" : 146 , "no" : "099" , flug : 0},
+						{"name" : "グレイシア",   "a" : 238 , "b" : 205 , "h" : 163 , "no" : "471" , flug : 0},
+						{"name" : "ケンホロウ",   "a" : 226 , "b" : 146 , "h" : 190 , "no" : "521" , flug : 0},
+						{"name" : "ゲンガー",     "a" : 261 , "b" : 149 , "h" : 155 , "no" : "094" , flug : 2},
+						{"name" : "ゴリランダー", "a" : 239 , "b" : 168 , "h" : 225 , "no" : "812" , flug : 0},
+						{"name" : "サーナイト",   "a" : 237 , "b" : 195 , "h" : 169 , "no" : "282" , flug : 0},
+						{"name" : "サワムラー",   "a" : 224 , "b" : 181 , "h" : 137 , "no" : "106" , flug : 0},
+						{"name" : "サンダー",     "a" : 253 , "b" : 185 , "h" : 207 , "no" : "145" , flug : 0},
+						{"name" : "サンダース",   "a" : 232 , "b" : 182 , "h" : 163 , "no" : "135" , flug : 0},
+						{"name" : "ザシアン",     "a" : 332 , "b" : 240 , "h" : 192 , "no" : "888" , flug : 0},
+						{"name" : "ザマゼンタ",   "a" : 250 , "b" : 292 , "h" : 192 , "no" : "889" , flug : 0},
+						{"name" : "シャワーズ",   "a" : 205 , "b" : 161 , "h" : 277 , "no" : "134" , flug : 0},
+						{"name" : "ジュラルドン", "a" : 239 , "b" : 185 , "h" : 172 , "no" : "884" , flug : 0},
+						{"name" : "ジジーロン",   "a" : 231 , "b" : 164 , "h" : 186 , "no" : "780" , flug : 0},
+						{"name" : "スイクン",     "a" : 180 , "b" : 235 , "h" : 225 , "no" : "245" , flug : 0},
+						{"name" : "ストリンダー", "a" : 224 , "b" : 140 , "h" : 181 , "no" : "849" , flug : 0},
+						{"name" : "タイレーツ",   "a" : 193 , "b" : 170 , "h" : 163 , "no" : "870" , flug : 0},
+						{"name" : "ダストダス",   "a" : 181 , "b" : 164 , "h" : 190 , "no" : "569" , flug : 0},
+						{"name" : "ツボツボ",     "a" : 17 ,  "b" : 396 , "h" : 85 , "no"  : "213" , flug : 0},
+						{"name" : "トドゼルガ",   "a" : 182 , "b" : 176 , "h" : 242 , "no" : "365" , flug : 0},
+						{"name" : "ドリュウズ",   "a" : 255 , "b" : 129 , "h" : 242 , "no" : "530" , flug : 0},
+						{"name" : "ナゲツケサル", "a" : 222 , "b" : 160 , "h" : 225 , "no" : "766" , flug : 0},
+						{"name" : "ニンフィア",   "a" : 203 , "b" : 205 , "h" : 216 , "no" : "700" , flug : 0},
+						{"name" : "バイウールー", "a" : 159 , "b" : 198 , "h" : 176 , "no" : "832" , flug : 0},
+						{"name" : "ハピナス",     "a" : 129 , "b" : 169 , "h" : 496 , "no" : "242" , flug : 0},
+						{"name" : "バタフリー",   "a" : 167 , "b" : 137 , "h" : 155 , "no" : "012" , flug : 0},
+						{"name" : "ヒヒダルマ",   "a" : 263 , "b" : 114 , "h" : 233 , "no" : "555" , flug : 0},
+						{"name" : "ファイヤー",   "a" : 251 , "b" : 181 , "h" : 207 , "no" : "146" , flug : 0},
+						{"name" : "フーディン",   "a" : 271 , "b" : 167 , "h" : 146 , "no" : "065" , flug : 0},
+						{"name" : "フシギバナ",   "a" : 198 , "b" : 189 , "h" : 190 , "no" : "003" , flug : 0},
+						{"name" : "フリーザー",   "a" : 192 , "b" : 236 , "h" : 207 , "no" : "144" , flug : 0},
+						{"name" : "フリージオ",   "a" : 190 , "b" : 218 , "h" : 190 , "no" : "615" , flug : 0},
+						{"name" : "ブラッキー",   "a" : 126 , "b" : 240 , "h" : 216 , "no" : "197" , flug : 0},
+						{"name" : "ブースター",   "a" : 246 , "b" : 179 , "h" : 163 , "no" : "136" , flug : 0},
+						{"name" : "ブリムオン",   "a" : 237 , "b" : 182 , "h" : 149 , "no" : "858" , flug : 0},
+						{"name" : "ホエルオー",   "a" : 175 , "b" : 87  , "h" : 347 , "no" : "321" , flug : 0},
+						{"name" : "ムゲンダイナ", "a" : 278 , "b" : 192 , "h" : 268 , "no" : "890" , flug : 3},
+						{"name" : "メタグロス",   "a" : 257 , "b" : 228 , "h" : 190 , "no" : "376" , flug : 0},
+						{"name" : "ヤミラミ",     "a" : 141 , "b" : 136 , "h" : 137 , "no" : "302" , flug : 0},
+						{"name" : "ヨクバリス",   "a" : 160 , "b" : 156 , "h" : 260 , "no" : "820" , flug : 0},
+						{"name" : "ライコウ",     "a" : 241 , "b" : 195 , "h" : 207 , "no" : "243" , flug : 0},
+						{"name" : "ラティアス",   "a" : 228 , "b" : 246 , "h" : 190 , "no" : "380" , flug : 0},
+						{"name" : "ラティオス",   "a" : 268 , "b" : 212 , "h" : 190 , "no" : "381" , flug : 0},
+						{"name" : "ラプラス",     "a" : 165 , "b" : 174 , "h" : 277 , "no" : "131" , flug : 0},
+						{"name" : "リザードン",   "a" : 223 , "b" : 173 , "h" : 186 , "no" : "006" , flug : 0},
+						{"name" : "リーフィア",   "a" : 216 , "b" : 219 , "h" : 163 , "no" : "470" , flug : 0},
+						{"name" : "ルギア",       "a" : 193 , "b" : 310 , "h" : 235 , "no" : "249" , flug : 0},
+						{"name" : "レパルダス",   "a" : 187 , "b" : 106 , "h" : 162 , "no" : "510" , flug : 0},
+
 					];
-					for (let i = 0; i < poke_data.length; i++) {
-						if (poke_data[i].flug != 0) {
-							$('#poke'+poke_data[i].flug).append('<option value="'+i+'" selected>'+poke_data[i].name+'</option>');
+					for (let n = 1; n < 4; n++) {
+						for (let i = 0; i < poke_data.length; i++) {
+							if (poke_data[i].flug == n) {
+								$('#poke'+n).append('<option value="'+i+'" selected>'+poke_data[i].name+'</option>');
+							} else {
+								$('#poke'+n).append('<option value="'+i+'">'+poke_data[i].name+'</option>');
+							}
 						}
-						$('#poke1').append('<option value="'+i+'">'+poke_data[i].name+'</option>');
-						$('#poke2').append('<option value="'+i+'">'+poke_data[i].name+'</option>');
-						$('#poke3').append('<option value="'+i+'">'+poke_data[i].name+'</option>');
 					}
 
 					function pokeCal(){
