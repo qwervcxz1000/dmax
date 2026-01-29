@@ -44,8 +44,8 @@
 								<p>
 									倍率補正： 
 									<select id="poke1_week" name="poke1_week">
-									<option value="4">二重抜群</option>
-									<option value="3" selected>抜群</option>
+									<option value="4">二重弱点</option>
+									<option value="3" selected>弱点</option>
 									<option value="0">等倍</option>
 									<option value="1">耐性</option>
 									<option value="2">2重耐性</option>
@@ -65,7 +65,7 @@
 									</select>
 								</p>
 								<div class="pokeicon"><span id="poke1_img"></span></div>
-								<p>攻：<span id="poke1_a_w"></span> 防：<span id="poke1_b_w"></span> HP：<span id="poke1_h_w"></span></p>
+								<p>攻：<span id="poke1_a_w"></span><br />防：<span id="poke1_b_w"></span><br />HP：<span id="poke1_h_w"></span></p>
 								<p>火力指数：<span id="poke1_a_index"></span></p>
 							</div>
 							<div class="col-sm">
@@ -78,8 +78,8 @@
 								<p>
 									倍率補正： 
 									<select id="poke2_week" name="poke2_week">
-									<option value="4">二重抜群</option>
-									<option value="3" selected>抜群</option>
+									<option value="4">二重弱点</option>
+									<option value="3" selected>弱点</option>
 									<option value="0">等倍</option>
 									<option value="1">耐性</option>
 									<option value="2">2重耐性</option>
@@ -99,7 +99,7 @@
 									</select>
 								</p>
 								<div class="pokeicon"><span id="poke2_img"></span></div>
-								<p>攻：<span id="poke2_a_w"></span> 防：<span id="poke2_b_w"></span> HP：<span id="poke2_h_w"></span></p>
+								<p>攻：<span id="poke2_a_w"></span><br />防：<span id="poke2_b_w"></span><br />HP：<span id="poke2_h_w"></span></p>
 								<p>火力指数：<span id="poke2_a_index"></span></p>
 							</div>
 							<div class="col-sm">
@@ -112,8 +112,8 @@
 								<p>
 									倍率補正： 
 									<select id="poke3_week" name="poke3_week">
-									<option value="4">二重抜群</option>
-									<option value="3" selected>抜群</option>
+									<option value="4">二重弱点</option>
+									<option value="3" selected>弱点</option>
 									<option value="0">等倍</option>
 									<option value="1">耐性</option>
 									<option value="2">2重耐性</option>
@@ -133,7 +133,7 @@
 									</select>
 								</p>
 								<div class="pokeicon"><span id="poke3_img"></span></div>
-								<p>攻：<span id="poke3_a_w"></span> 防：<span id="poke3_b_w"></span> HP：<span id="poke3_h_w"></span></p>
+								<p>攻：<span id="poke3_a_w"></span><br />防：<span id="poke3_b_w"></span><br />HP：<span id="poke3_h_w"></span></p>
 								<p>火力指数：<span id="poke3_a_index"></span></p>
 							</div>
 						</div>
@@ -282,13 +282,23 @@
 						{"PL":55.5,"CPM":1}
 					];
 
+					//{"name" : "", "a" : , "b" : , "h" : , "no" : ""},
 
 					var poke_data = [
-						{"name" : "ムゲンダイナ", "a" : 278, "b" :192 , "h" :268 , "no" : "890"},
+
 						{"name" : "インテレオン", "a" : 262, "b" :142 , "h" :172 , "no" : "818"},
-						{"name" : "ゲンガー", "a" : 261, "b" :149 , "h" :155 , "no" : "094"},
-						{"name" : "ギガイアス", "a" : 226, "b" :201 , "h" :198 , "no" : "526"},
-						
+						{"name" : "ゲンガー",     "a" : 261, "b" :149 , "h" :155 , "no" : "094"},
+						{"name" : "ギガイアス",   "a" : 226, "b" :201 , "h" :198 , "no" : "526"},
+						{"name" : "ムゲンダイナ", "a" : 278, "b" :192 , "h" :268 , "no" : "890"},
+						{"name" : "ザシアン",     "a" : 332 , "b" : 240 , "h" : 192 , "no" : "888"},
+						{"name" : "キングラー", "a" 240 : , 181 "b" : , "h" : 146 , "no" : "099"},
+						{"name" : "ゴリランダー", "a" : 239 , "b" 168 : , "h" : 225 , "no" : "812"},
+						{"name" : "エースバーン", "a" : 238 , "b" : 163 , "h" : 190 , "no" : "815"},
+						{"name" : "カイリキー", "a" 234 : , "b" 159 : , "h" 207 : , "no" : "068"},
+						{"name" : "オーロンゲ", "a" 227 : , "b" 139 : , "h" : 216 , "no" : "861"},
+						{"name" : "ストリンダー", "a" 224 : , "b" 140 : , "h" 181 : , "no" : "849"},
+						{"name" : "リザードン", "a" 223 : , "b" 173 : , "h" 186 : , "no" : "006"},
+						{"name" : "フーディン", "a" 271 : , "b" 167 : , "h" 146 : , "no" : "065"},
 					];
 					for (let i = 0; i < poke_data.length; i++) {
 						$('#poke1').append('<option value="'+i+'">'+poke_data[i].name+'</option>');
@@ -303,32 +313,32 @@
 
 						$("#poke1_img").html('<img src="img/'+ poke_data[poke1].no +'.png" class="pokeimg">');
 						poke1_cpm = cpm[(Number($('#damagecacl [name=poke1_l]').val())-1)*2].CPM;
-						poke1_a = Math.round((poke_data[poke1].a+Number($('#damagecacl [name=poke1_a]').val())) * poke1_cpm);
-						poke1_b = Math.round((poke_data[poke1].b+Number($('#damagecacl [name=poke1_b]').val())) * poke1_cpm);
+						poke1_a = (poke_data[poke1].a+Number($('#damagecacl [name=poke1_a]').val())) * poke1_cpm;
+						poke1_b = (poke_data[poke1].b+Number($('#damagecacl [name=poke1_b]').val())) * poke1_cpm;
 						poke1_h = Math.floor((poke_data[poke1].h+Number($('#damagecacl [name=poke1_h]').val())) * poke1_cpm);
-						$("#poke1_a_w").html(poke1_a);
-						$("#poke1_b_w").html(poke1_b);
+						$("#poke1_a_w").html(Math.round(poke1_a*100)/100);
+						$("#poke1_b_w").html(Math.round(poke1_b*100)/100);
 						$("#poke1_h_w").html(poke1_h);
 						$("#poke1_a_index").html(Math.round(poke1_a * poke_week_cal(Number($('#damagecacl [name=poke1_week]').val())) * Number($('#damagecacl [name=poke1_a_l]').val())));
 
 
 						$("#poke2_img").html('<img src="img/'+ poke_data[poke2].no +'.png" class="pokeimg">');
 						poke2_cpm = cpm[(Number($('#damagecacl [name=poke2_l]').val())-1)*2].CPM;
-						poke2_a = Math.round((poke_data[poke2].a+Number($('#damagecacl [name=poke2_a]').val())) * poke2_cpm);
-						poke2_b = Math.round((poke_data[poke2].b+Number($('#damagecacl [name=poke2_b]').val())) * poke2_cpm);
+						poke2_a = (poke_data[poke2].a+Number($('#damagecacl [name=poke2_a]').val())) * poke2_cpm;
+						poke2_b = (poke_data[poke2].b+Number($('#damagecacl [name=poke2_b]').val())) * poke2_cpm;
 						poke2_h = Math.floor((poke_data[poke2].h+Number($('#damagecacl [name=poke2_h]').val())) * poke2_cpm);
-						$("#poke2_a_w").html(poke2_a);
-						$("#poke2_b_w").html(poke2_b);
+						$("#poke2_a_w").html(Math.round(poke2_a*100)/100);
+						$("#poke2_b_w").html(Math.round(poke2_b*100)/100);
 						$("#poke2_h_w").html(poke2_h);
 						$("#poke2_a_index").html(Math.round(poke2_a * poke_week_cal(Number($('#damagecacl [name=poke2_week]').val())) * Number($('#damagecacl [name=poke2_a_l]').val())));
 
 						$("#poke3_img").html('<img src="img/'+ poke_data[poke3].no +'.png" class="pokeimg">');
 						poke3_cpm = cpm[(Number($('#damagecacl [name=poke3_l]').val())-1)*2].CPM;
-						poke3_a = Math.round((poke_data[poke3].a+Number($('#damagecacl [name=poke3_a]').val())) * poke3_cpm);
-						poke3_b = Math.round((poke_data[poke3].b+Number($('#damagecacl [name=poke3_b]').val())) * poke3_cpm);
+						poke3_a = (poke_data[poke3].a+Number($('#damagecacl [name=poke3_a]').val())) * poke3_cpm;
+						poke3_b = (poke_data[poke3].b+Number($('#damagecacl [name=poke3_b]').val())) * poke3_cpm;
 						poke3_h = Math.floor((poke_data[poke3].h+Number($('#damagecacl [name=poke3_h]').val())) * poke3_cpm);
-						$("#poke3_a_w").html(poke3_a);
-						$("#poke3_b_w").html(poke3_b);
+						$("#poke3_a_w").html(Math.round(poke3_a*100)/100);
+						$("#poke3_b_w").html(Math.round(poke3_b*100)/100);
 						$("#poke3_h_w").html(poke3_h);
 						$("#poke3_a_index").html(Math.round(poke3_a * poke_week_cal(Number($('#damagecacl [name=poke3_week]').val())) * Number($('#damagecacl [name=poke3_a_l]').val())));
 					}
