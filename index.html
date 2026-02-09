@@ -159,6 +159,7 @@
 											入力ミスの可能性はあるのでおかしい場所あれば教えてください…<br />
 											ダイウォールはLv3前提で計算してます面倒なので<br />
 											たまにキャッシュ消すかスーパーリロードした方が良いかも<br />
+											ザマゼンタの耐久はウォール1枚分を全てサイレントで加算しています<br />
 										</td>
 									</tr>
 									<tr>
@@ -396,6 +397,9 @@
 							 * Math.sqrt(poke_data[poke1].h+Number($('#damagecacl [name=poke1_h]').val())) * poke1_cpm * poke1_cpm / 10));
 						poke1_hb_index = poke1_h * poke1_b;
 						poke1_b_index = poke1_b * 60;
+						if (poke_data[poke1].no == "889") {
+							poke1_hb_index = poke1_hb_index + poke1_b_index;
+						}
 						$("#poke1_hb_index").html(Math.round(poke1_hb_index));
 						$("#poke1_b_index").html(Math.round(poke1_b_index));
 
@@ -421,6 +425,9 @@
 							 * Math.sqrt(poke_data[poke2].h+Number($('#damagecacl [name=poke2_h]').val())) * poke2_cpm * poke2_cpm / 10));
 						poke2_hb_index = poke2_h * poke2_b;
 						poke2_b_index = poke2_b * 60;
+						if (poke_data[poke2].no == "889") {
+							poke2_hb_index = poke2_hb_index + poke2_b_index;
+						}
 						$("#poke2_hb_index").html(Math.round(poke2_hb_index));
 						$("#poke2_b_index").html(Math.round(poke2_b_index));
 
@@ -446,6 +453,9 @@
 							 * Math.sqrt(poke_data[poke3].h+Number($('#damagecacl [name=poke3_h]').val())) * poke3_cpm * poke3_cpm / 10));
 						poke3_hb_index = poke3_h * poke3_b;
 						poke3_b_index = poke3_b * 60;
+						if (poke_data[poke1].no == "889") {
+							poke3_hb_index = poke3_hb_index + poke3_b_index;
+						}
 						$("#poke3_hb_index").html(Math.round(poke3_hb_index));
 						$("#poke3_b_index").html(Math.round(poke3_b_index));
 
