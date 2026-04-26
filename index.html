@@ -45,13 +45,23 @@
 								<p>HP個体値：<input type="number" name="poke1_h" value="15" maxlength="2" style="width:90px;"> </p>
 								<p>レベル　：<input type="number" name="poke1_l" value="50" maxlength="4" style="width:90px;" step="0.5"> </p>
 								<p>
-									倍率補正： 
+									攻撃倍率： 
 									<select id="poke1_week" name="poke1_week">
 									<option value="4">二重弱点</option>
 									<option value="3" selected>弱点</option>
 									<option value="0">等倍</option>
 									<option value="1">耐性</option>
 									<option value="2">2重耐性</option>
+									</select>
+								</p>
+								<p>
+									防御倍率： 
+									<select id="poke1_" name="poke1_resist">
+									<option value="2">二重弱点</option>
+									<option value="1">弱点</option>
+									<option value="0" selected>等倍</option>
+									<option value="3">耐性</option>
+									<option value="4">2重耐性</option>
 									</select>
 								</p>
 								<p>
@@ -81,13 +91,23 @@
 								<p>HP個体値：<input type="number" name="poke2_h" value="15" maxlength="2" style="width:90px;"> </p>
 								<p>レベル　：<input type="number" name="poke2_l" value="50" maxlength="4" style="width:90px;" step="0.5"> </p>
 								<p>
-									倍率補正： 
+									攻撃倍率： 
 									<select id="poke2_week" name="poke2_week">
 									<option value="4">二重弱点</option>
 									<option value="3" selected>弱点</option>
 									<option value="0">等倍</option>
 									<option value="1">耐性</option>
 									<option value="2">2重耐性</option>
+									</select>
+								</p>
+								<p>
+									防御倍率： 
+									<select id="poke1_week" name="poke2_resist">
+									<option value="2">二重弱点</option>
+									<option value="1">弱点</option>
+									<option value="0" selected>等倍</option>
+									<option value="3">耐性</option>
+									<option value="4">2重耐性</option>
 									</select>
 								</p>
 								<p>
@@ -117,13 +137,23 @@
 								<p>HP個体値：<input type="number" name="poke3_h" value="15" maxlength="2" style="width:90px;"> </p>
 								<p>レベル　：<input type="number" name="poke3_l" value="50" maxlength="4" style="width:90px;" step="0.5"> </p>
 								<p>
-									倍率補正： 
+									攻撃倍率： 
 									<select id="poke3_week" name="poke3_week">
 									<option value="4">二重弱点</option>
 									<option value="3" selected>弱点</option>
 									<option value="0">等倍</option>
 									<option value="1">耐性</option>
 									<option value="2">2重耐性</option>
+									</select>
+								</p>
+								<p>
+									防御倍率： 
+									<select id="poke1_week" name="poke3_resist">
+									<option value="2">二重弱点</option>
+									<option value="1">弱点</option>
+									<option value="0" selected>等倍</option>
+									<option value="3">耐性</option>
+									<option value="4">2重耐性</option>
 									</select>
 								</p>
 								<p>
@@ -404,8 +434,8 @@
 						$("#poke1_cp").html( Math.floor((poke_data[poke1].a+Number($('#damagecacl [name=poke1_a]').val()))
 							 * Math.sqrt(poke_data[poke1].b+Number($('#damagecacl [name=poke1_b]').val()))
 							 * Math.sqrt(poke_data[poke1].h+Number($('#damagecacl [name=poke1_h]').val())) * poke1_cpm * poke1_cpm / 10));
-						poke1_hb_index = poke1_h * poke1_b;
-						poke1_b_index = poke1_b * 60;
+						poke1_hb_index = poke1_h * poke1_b * poke_week_cal(Number($('#damagecacl [name=poke1_resist]').val()));
+						poke1_b_index = poke1_b * 60 * poke_week_cal(Number($('#damagecacl [name=poke1_resist]').val()));
 						if (poke_data[poke1].no == "889") {
 							poke1_hb_index = poke1_hb_index + poke1_b_index;
 						}
@@ -432,8 +462,8 @@
 						$("#poke2_cp").html( Math.floor((poke_data[poke2].a+Number($('#damagecacl [name=poke2_a]').val()))
 							 * Math.sqrt(poke_data[poke2].b+Number($('#damagecacl [name=poke2_b]').val()))
 							 * Math.sqrt(poke_data[poke2].h+Number($('#damagecacl [name=poke2_h]').val())) * poke2_cpm * poke2_cpm / 10));
-						poke2_hb_index = poke2_h * poke2_b;
-						poke2_b_index = poke2_b * 60;
+						poke2_hb_index = poke2_h * poke2_b * poke_week_cal(Number($('#damagecacl [name=poke2_resist]').val()));
+						poke2_b_index = poke2_b * 60 * poke_week_cal(Number($('#damagecacl [name=poke2_resist]').val())) ;
 						if (poke_data[poke2].no == "889") {
 							poke2_hb_index = poke2_hb_index + poke2_b_index;
 						}
@@ -460,8 +490,8 @@
 						$("#poke3_cp").html( Math.floor((poke_data[poke3].a+Number($('#damagecacl [name=poke3_a]').val()))
 							 * Math.sqrt(poke_data[poke3].b+Number($('#damagecacl [name=poke3_b]').val()))
 							 * Math.sqrt(poke_data[poke3].h+Number($('#damagecacl [name=poke3_h]').val())) * poke3_cpm * poke3_cpm / 10));
-						poke3_hb_index = poke3_h * poke3_b;
-						poke3_b_index = poke3_b * 60;
+						poke3_hb_index = poke3_h * poke3_b * poke_week_cal(Number($('#damagecacl [name=poke3_resist]').val()));
+						poke3_b_index = poke3_b * 60 * poke_week_cal(Number($('#damagecacl [name=poke3_resist]').val()));
 						if (poke_data[poke3].no == "889") {
 							poke3_hb_index = poke3_hb_index + poke3_b_index;
 						}
