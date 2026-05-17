@@ -144,6 +144,7 @@
 									<option value="0">等倍</option>
 									<option value="1">耐性</option>
 									<option value="2">2重耐性</option>
+									<option value="5">3重耐性</option>
 									</select>
 								</p>
 								<p>
@@ -154,6 +155,7 @@
 									<option value="0" selected>等倍</option>
 									<option value="3">耐性</option>
 									<option value="4">2重耐性</option>
+									<option value="5">3重耐性</option>
 									</select>
 								</p>
 								<p>
@@ -526,6 +528,9 @@
 							case 4:
 								return 1.6*1.6;
 							break;
+							case 5:
+								return 1/1.6/1.6/1.6;
+							break;
 						}
 						return 100;
 					}
@@ -546,6 +551,9 @@
 							break;
 							case 4:
 								return 1/1.6/1.6;
+							break;
+							case 5:
+								return 1/1.6/1.6/1.6;
 							break;
 						}
 						return 100;
