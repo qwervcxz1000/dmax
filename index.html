@@ -63,7 +63,7 @@
 									<option value="0" selected>等倍</option>
 									<option value="3">耐性</option>
 									<option value="4">2重耐性</option>
-									<option value="5">3重耐性</option>
+									<option value="6">3重耐性</option>
 									</select>
 								</p>
 								<p>
@@ -111,7 +111,7 @@
 									<option value="0" selected>等倍</option>
 									<option value="3">耐性</option>
 									<option value="4">2重耐性</option>
-									<option value="5">3重耐性</option>
+									<option value="6">3重耐性</option>
 									</select>
 								</p>
 								<p>
@@ -159,7 +159,7 @@
 									<option value="0" selected>等倍</option>
 									<option value="3">耐性</option>
 									<option value="4">2重耐性</option>
-									<option value="5">3重耐性</option>
+									<option value="6">3重耐性</option>
 									</select>
 								</p>
 								<p>
@@ -535,34 +535,12 @@
 							case 5:
 								return 1/1.6/1.6/1.6;
 							break;
-						}
-						return 100;
-					}
-
-					function poke_def_cal(week) {
-						switch (week) {
-							case 0:
-								return 1;
-							break;
-							case 1:
-								return 1.6;
-							break;
-							case 2:
-								return 1.6*1.6;
-							break;
-							case 3:
-								return 1/1.6;
-							break;
-							case 4:
-								return 1/1.6/1.6;
-							break;
-							case 5:
+							case 6:
 								return 1.6*1.6*1.6;
 							break;
+							
 						}
-						return 100;
 					}
-
 
 					$("#damagecacl").on('click keydown keyup keypress change',function () {
 						pokeCal();
