@@ -38,6 +38,54 @@
 					<form id="damagecacl" data-persist="garlic">
 						<div class="row">
 							<div class="col-sm">
+								<p>・基準用</p>
+								<p>poke：<select id="poke3" name="poke3"></select> </p>
+								<p>攻個体値：<input type="number" name="poke3_a" value="15" maxlength="2" style="width:90px;"> </p>
+								<p>防個体値：<input type="number" name="poke3_b" value="15" maxlength="2" style="width:90px;"> </p>
+								<p>HP個体値：<input type="number" name="poke3_h" value="15" maxlength="2" style="width:90px;"> </p>
+								<p>レベル　：<input type="number" name="poke3_l" value="50" maxlength="4" style="width:90px;" step="0.5"> </p>
+								<p>
+									攻撃倍率： 
+									<select id="poke3_week" name="poke3_week">
+									<option value="4">二重弱点</option>
+									<option value="3" selected>弱点</option>
+									<option value="0">等倍</option>
+									<option value="1">耐性</option>
+									<option value="2">2重耐性</option>
+									<option value="5">3重耐性</option>
+									</select>
+								</p>
+								<p>
+									防御倍率： 
+									<select id="poke1_week" name="poke3_resist">
+									<option value="2">二重弱点</option>
+									<option value="1">弱点</option>
+									<option value="0" selected>等倍</option>
+									<option value="3">耐性</option>
+									<option value="4">2重耐性</option>
+									<option value="6">3重耐性</option>
+									</select>
+								</p>
+								<p>
+									技威力： 
+									<select id="poke3_a_l" name="poke3_a_l">
+									<option value="250">250 通常Lv1</option>
+									<option value="300">300 通常Lv2</option>
+									<option value="350">350 通常Lv3</option>
+									<option value="450" class="maxlev">450 通常Lv4</option>
+									<option value="350">350 キョLv1</option>
+									<option value="400">400 キョLv2</option>
+									<option value="450" selected>450 キョLv3</option>
+									<option value="550" class="maxlev">550 キョLv4</option>
+									</select>
+								</p>
+								<div class="pokeicon"><span id="poke3_img"></span></div>
+								<p>攻：<span id="poke3_a_w"></span><br />防：<span id="poke3_b_w"></span><br />HP：<span id="poke3_h_w"></span><br />CP：<span id="poke3_cp"></span></p>
+								<p>火力指数：<span id="poke3_a_index"></span> (<span id="poke3_a_index_per">100%</span>)</p>
+								<p>耐久指数：<span id="poke3_hb_index"></span><br />シールド：<span id="poke3_b_index"></span></p>
+								<p>壁1枚　：<span id="poke3_b_1"></span><br />壁3枚　：<span id="poke3_b_3"></span><br />壁5枚　：<span id="poke3_b_5"></span><br />壁7枚　：<span id="poke3_b_7"></span><br />壁9枚　：<span id="poke3_b_9"></span><br /></p>
+							</div>
+							<div class="col-sm">
 								<p>・ポケモン1</p>
 								<p>poke：<select id="poke1" name="poke1"></select> </p>
 								<p>攻個体値：<input type="number" name="poke1_a" value="15" maxlength="2" style="width:90px;"> </p>
@@ -133,54 +181,6 @@
 								<p>耐久指数：<span id="poke2_hb_index"></span><br />シールド：<span id="poke2_b_index"></span></p>
 								<p>壁1枚　：<span id="poke2_b_1"></span><br />壁3枚　：<span id="poke2_b_3"></span><br />壁5枚　：<span id="poke2_b_5"></span><br />壁7枚　：<span id="poke2_b_7"></span><br />壁9枚　：<span id="poke2_b_9"></span><br /></p>
 							</div>
-							<div class="col-sm">
-								<p>・基準用</p>
-								<p>poke：<select id="poke3" name="poke3"></select> </p>
-								<p>攻個体値：<input type="number" name="poke3_a" value="15" maxlength="2" style="width:90px;"> </p>
-								<p>防個体値：<input type="number" name="poke3_b" value="15" maxlength="2" style="width:90px;"> </p>
-								<p>HP個体値：<input type="number" name="poke3_h" value="15" maxlength="2" style="width:90px;"> </p>
-								<p>レベル　：<input type="number" name="poke3_l" value="50" maxlength="4" style="width:90px;" step="0.5"> </p>
-								<p>
-									攻撃倍率： 
-									<select id="poke3_week" name="poke3_week">
-									<option value="4">二重弱点</option>
-									<option value="3" selected>弱点</option>
-									<option value="0">等倍</option>
-									<option value="1">耐性</option>
-									<option value="2">2重耐性</option>
-									<option value="5">3重耐性</option>
-									</select>
-								</p>
-								<p>
-									防御倍率： 
-									<select id="poke1_week" name="poke3_resist">
-									<option value="2">二重弱点</option>
-									<option value="1">弱点</option>
-									<option value="0" selected>等倍</option>
-									<option value="3">耐性</option>
-									<option value="4">2重耐性</option>
-									<option value="6">3重耐性</option>
-									</select>
-								</p>
-								<p>
-									技威力： 
-									<select id="poke3_a_l" name="poke3_a_l">
-									<option value="250">250 通常Lv1</option>
-									<option value="300">300 通常Lv2</option>
-									<option value="350">350 通常Lv3</option>
-									<option value="450" class="maxlev">450 通常Lv4</option>
-									<option value="350">350 キョLv1</option>
-									<option value="400">400 キョLv2</option>
-									<option value="450" selected>450 キョLv3</option>
-									<option value="550" class="maxlev">550 キョLv4</option>
-									</select>
-								</p>
-								<div class="pokeicon"><span id="poke3_img"></span></div>
-								<p>攻：<span id="poke3_a_w"></span><br />防：<span id="poke3_b_w"></span><br />HP：<span id="poke3_h_w"></span><br />CP：<span id="poke3_cp"></span></p>
-								<p>火力指数：<span id="poke3_a_index"></span> (<span id="poke3_a_index_per">100%</span>)</p>
-								<p>耐久指数：<span id="poke3_hb_index"></span><br />シールド：<span id="poke3_b_index"></span></p>
-								<p>壁1枚　：<span id="poke3_b_1"></span><br />壁3枚　：<span id="poke3_b_3"></span><br />壁5枚　：<span id="poke3_b_5"></span><br />壁7枚　：<span id="poke3_b_7"></span><br />壁9枚　：<span id="poke3_b_9"></span><br /></p>
-							</div>
 						</div>
 						<div class="row">
 							<p><input type="submit" value="データリセット" class="btn btn-primary"></p>
@@ -201,7 +201,8 @@
 									<tr>
 										<td>
 											・更新履歴<br />
-											フライゴン レジ3種追加 防御面の耐性追加<br />
+											基準ポケモンを左に移動しました(右にあるのキモかったので)<br />
+											ビークイン エレキブル追加<br />
 										</td>
 									</tr>
 								</tbody>
@@ -343,6 +344,7 @@
 						{"name" : "エーフィ",     "a" : 261 , "b" : 175 , "h" : 163 , "no" : "196" , flug : 0},
 						{"name" : "エビワラー",   "a" : 193 , "b" : 197 , "h" : 137 , "no" : "107" , flug : 0},
 						{"name" : "エルレイド",   "a" : 237 , "b" : 195 , "h" : 169 , "no" : "475" , flug : 0},
+						{"name" : "エレキブル",   "a" : 249 , "b" : 163 , "h" : 181 , "no" : "466" , flug : 0},
 						{"name" : "エンテイ",     "a" : 235 , "b" : 171 , "h" : 251 , "no" : "244" , flug : 0},
 						{"name" : "オーロンゲ",   "a" : 227 , "b" : 139 , "h" : 216 , "no" : "861" , flug : 0},
 						{"name" : "オムスター",   "a" : 207 , "b" : 201 , "h" : 172 , "no" : "139" , flug : 0},
@@ -376,11 +378,12 @@
 						{"name" : "ナゲツケサル", "a" : 222 , "b" : 160 , "h" : 225 , "no" : "766" , flug : 0},
 						{"name" : "ニャース",     "a" : 92  , "b" :  78 , "h" : 120 , "no" : "052" , flug : 0},
 						{"name" : "ニンフィア",   "a" : 203 , "b" : 205 , "h" : 216 , "no" : "700" , flug : 0},
-						{"name" : "ピカチュウ"  , "a" : 112 , "b" :  96 , "h" : 111 , "no" : "025" , flug : 0},
 						{"name" : "ハピナス",     "a" : 129 , "b" : 169 , "h" : 496 , "no" : "242" , flug : 0},
 						{"name" : "バイウールー", "a" : 159 , "b" : 198 , "h" : 176 , "no" : "832" , flug : 0},
 						{"name" : "バタフリー",   "a" : 167 , "b" : 137 , "h" : 155 , "no" : "012" , flug : 0},
 						{"name" : "ヒヒダルマ",   "a" : 263 , "b" : 114 , "h" : 233 , "no" : "555" , flug : 0},
+						{"name" : "ビークイン",   "a" : 149 , "b" : 190 , "h" : 172 , "no" : "416" , flug : 0},
+						{"name" : "ピカチュウ"  , "a" : 112 , "b" :  96 , "h" : 111 , "no" : "025" , flug : 0},
 						{"name" : "ファイヤー",   "a" : 251 , "b" : 181 , "h" : 207 , "no" : "146" , flug : 0},
 						{"name" : "フーディン",   "a" : 271 , "b" : 167 , "h" : 146 , "no" : "065" , flug : 0},
 						{"name" : "フシギバナ",   "a" : 198 , "b" : 189 , "h" : 190 , "no" : "003" , flug : 0},
